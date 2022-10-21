@@ -34,14 +34,15 @@ const registerUser = asyncHandler(async(req,res) => {
     const user = await User.create({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
     })
 
     if(user) {
         res.status(201).json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -53,14 +54,38 @@ const registerUser = asyncHandler(async(req,res) => {
 // @route        POST /api/login
 // @access       Public
 const loginUser = asyncHandler(async(req,res) => {
-    res.json({message: 'login user'})
+    const {email, password} = req.body
+
+    //Check for user email
+    const user = await User.findOne({email})
+
+    //Check password
+    if(user && (await bcrypt.compare(password, user.password))) {
+        res.status(201).json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            token: generateToken(user._id)
+        })
+    } else {
+        res.status(400)
+        throw new Error('Invalid Credentials')
+    }
 })
 
 // @description  Get User Data
 // @route        GET /api/users/me
-// @access       Public
+// @access       Private
 const getUserData = asyncHandler(async(req,res) => {
     res.json({message: 'Display User Data'})
 })
+
+//Generate JWT
+
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    })
+} 
 
 module.exports = {registerUser, loginUser, getUserData}
