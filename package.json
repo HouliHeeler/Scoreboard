@@ -1,5 +1,6 @@
 {
   "name": "scoreboard",
+  "homepage": "/login",
   "version": "1.0.0",
   "description": "NBA Tracker App",
   "main": "server.js",

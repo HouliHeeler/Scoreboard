@@ -44,6 +44,8 @@ const deleteGoal = async(goalId, token) => {
     return response.data
 }
 
+//Export CRUD functions
+
 const goalService = {
     createGoal,
     getGoals,

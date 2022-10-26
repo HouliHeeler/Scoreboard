@@ -1,10 +1,11 @@
 import {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {toast, Toast} from 'react-toastify'
+import {toast} from 'react-toastify'
 import {FaUser} from 'react-icons/fa'
 import { register, reset} from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
+import {nbaTeams} from '../app/constants'
 
 
 function Register() {
@@ -12,10 +13,11 @@ function Register() {
         name: "",
         email: "",
         password: "",
-        password2: ""
+        password2: "",
+        favouriteTeam: 'Select Your Favourite Team'
     })
 
-    const {name, email, password, password2} = formData
+    const {name, email, password, password2, favouriteTeam} = formData
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -54,7 +56,7 @@ function Register() {
         if(password !== password2) {
             toast.error('Passwords do not match')
         }else {
-            const userData = {name, email, password}
+            const userData = {name, email, password, favouriteTeam}
 
             dispatch(register(userData))
         }
@@ -112,6 +114,19 @@ function Register() {
                         value={password2} 
                         placeholder="Confirm Password" 
                         onChange={onChange}/>
+                </div>
+                <div className='form-group'>
+                    <span>Select Your Favourite Team</span>
+                    <select
+                        onChange={onChange}
+                        className='form-control'
+                        id='dropdown'
+                        name='favouriteTeam'
+                    >
+                        {nbaTeams.map((option, idx) => (
+                        <option key={idx}>{option}</option>
+                        ))}
+                    </select>
                 </div>
                 <div className='form-group'>
                     <button type='submit' className='btn btn-block'>Submit</button>
