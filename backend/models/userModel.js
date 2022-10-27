@@ -10,6 +10,10 @@ const userSchema = mongoose.Schema({
         required: [true, 'Please add an email'],
         unique: true
     },
+    favouriteTeam: {
+        type: String,
+        required: [true, 'Please select your favourite team']
+    },
     password: {
         type: String,
         required: [true, 'Please add a password']

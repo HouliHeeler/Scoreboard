@@ -2,13 +2,12 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
-const { use } = require('../routes/userRoutes')
 
 // @description  Register New User
 // @route        POST /api/users
 // @access       Public
 const registerUser = asyncHandler(async(req,res) => {
-    const { name, email, password} = req.body
+    const { name, email, password, favouriteTeam} = req.body
 
     if(!name || !email || !password) {
         res.status(400)
@@ -34,6 +33,7 @@ const registerUser = asyncHandler(async(req,res) => {
     const user = await User.create({
         name,
         email,
+        favouriteTeam,
         password: hashedPassword,
     })
 
@@ -42,6 +42,7 @@ const registerUser = asyncHandler(async(req,res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            favouriteTeam: user.favouriteTeam,
             token: generateToken(user._id)
         })
     } else {
@@ -65,6 +66,7 @@ const loginUser = asyncHandler(async(req,res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            favouriteTeam: user.favouriteTeam,
             token: generateToken(user._id)
         })
     } else {

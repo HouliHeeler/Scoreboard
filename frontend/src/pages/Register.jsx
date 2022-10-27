@@ -118,10 +118,13 @@ function Register() {
                 <div className='form-group'>
                     <span>Select Your Favourite Team</span>
                     <select
-                        onChange={onChange}
                         className='form-control'
-                        id='dropdown'
+                        type="dropdown"
+                        id='favouriteTeam'
                         name='favouriteTeam'
+                        value={favouriteTeam}
+                        placeholder="Select Favourite Team"
+                        onChange={onChange}
                     >
                         {nbaTeams.map((option, idx) => (
                         <option key={idx}>{option}</option>
