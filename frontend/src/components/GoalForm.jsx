@@ -31,7 +31,7 @@ function GoalForm() {
 
     //Select Favourite Player
 
-    const [favouritePlayer, setFavouritePlayer] = useState('Achiuwa, Precious')
+    const [favouritePlayer, setFavouritePlayer] = useState('Precious Achiuwa')
 
     const onChange = (e) => {
       setFavouritePlayer(e.target.value)
@@ -47,7 +47,6 @@ function GoalForm() {
         <section className='form'>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
-                    <label htmlFor='text'>Favourite Players</label>
                     <select
                         className='form-control'
                         type="text"
@@ -58,7 +57,7 @@ function GoalForm() {
                         onChange={onChange}
                     >
                         {nbaPlayers.filter(name => name.temporaryDisplayName).map((option, idx) => (
-                        <option key={idx}>{option.temporaryDisplayName}</option>
+                        <option key={idx}>{option.firstName} {option.lastName}</option>
                         ))}
                     </select>
                 </div>

@@ -17,7 +17,17 @@ function Header() {
   return (
     <header className='header'>
         <div className='logo'>
-            <Link to="/">Scoreboard</Link>
+            <ul>
+                <li>
+                    <Link to="/">Scoreboard</Link>
+                </li>
+                <li>
+                    <Link to="/favouriteplayers">Favourite Players</Link>
+                </li>
+                <li>
+                <Link to="/standings">Standings</Link>
+                </li>
+            </ul>
         </div>
         <ul>
             {user ? 
