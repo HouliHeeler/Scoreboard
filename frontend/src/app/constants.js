@@ -30,3 +30,11 @@ export const nbaTeams = [
     'Utah Jazz',
     'Washington Wizards'
 ]
+
+export const nbaPlayers = [
+    'Ja Morant',
+    'Jrue Holiday',
+    'Zach Randolph',
+    'Mike Bibby',
+    'Jason Williams'
+]

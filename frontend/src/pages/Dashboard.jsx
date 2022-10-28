@@ -39,7 +39,7 @@ function Dashboard() {
     <>
       <section className='heading'>
         <h1>Welcome {user && `${user.favouriteTeam} Fan!`}</h1>
-        <p>Goals Dashboard</p>
+        <p>Favourite Players</p>
       </section>
       <GoalForm />
       <section className='content'>
@@ -49,7 +49,7 @@ function Dashboard() {
               <GoalItem key={goal._id} goal={goal}/>
             ))}
           </div>
-        ) : (<h3>You Have No Goals</h3>)}
+        ) : (<h3>You Have No Favourite Players</h3>)}
       </section>
     </>
   )
