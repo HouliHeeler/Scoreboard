@@ -35,7 +35,28 @@ export const nbaColours = [
     {AtlantaHawks: [
         {home: ["#C8102E", "#FDB927", "#FFFFFF"]},
         {away: ["#C8102E", "#FDB927", "#000000"]}
+    ]},
+    {BostonCeltics: [
+        {home: ["#FFFFFF", "#007A33"]},
+        {away: ["#007A33", "#FFFFFF"]}
+    ]},
+    {BrooklynNets: [
+        {home: ["#C6CFD4", "#000000"]},
+        {away: ["#000000", "#C6CFD4"]}
+    ]},
+    {CharlotteHornets: [
+        {home: ["#FFFFFF", "#00788C"]},
+        {away: ["#00788C", "#1d1160"]}
+    ]}
+    {ChicagoBulls: [
+        {home: ["#FFFFFF", "#CE1141"]},
+        {away: ["#CE1141", "#000000"]}
     ]}
 ]
 
-//console.log(nbaColours[0].AtlantaHawks[0].home[0]) will log '#C8102E'
+//Function will return first item in chosen teams home array, adjust as needed
+
+// function getColours(team) {
+//     const teamName = team.split(" ").join("")
+//     return nbaColours[0][teamName][0].home[0]
+// }
