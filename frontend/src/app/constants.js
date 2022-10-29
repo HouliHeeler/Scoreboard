@@ -31,10 +31,11 @@ export const nbaTeams = [
     'Washington Wizards'
 ]
 
-export const nbaPlayers = [
-    'Ja Morant',
-    'Jrue Holiday',
-    'Zach Randolph',
-    'Mike Bibby',
-    'Jason Williams'
+export const nbaColours = [
+    {AtlantaHawks: [
+        {home: ["#C8102E", "#FDB927", "#FFFFFF"]},
+        {away: ["#C8102E", "#FDB927", "#000000"]}
+    ]}
 ]
+
+//console.log(nbaColours[0].AtlantaHawks[0].home[0]) will log '#C8102E'
