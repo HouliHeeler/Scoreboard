@@ -15,12 +15,15 @@ function Scoreboard() {
         return `${year}-${month}-${date}`
     }
 
+    const currentDate = getDate()
+    //Pull live scores from API using current date
+
     const [scores, setScores] = useState([])
 
     const [isLoading, setIsLoading] = useState(true)
 
     function getScores() {
-        fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${getDate}`, {
+        fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
@@ -42,7 +45,9 @@ function Scoreboard() {
           });
     }
 
-    useEffect(getScores, [])
+    useEffect(getScores, [currentDate])
+
+    console.log(scores)
 
     return (
         isLoading ? <Spinner /> :
@@ -53,9 +58,6 @@ function Scoreboard() {
                 <span style={{margin:'20px'}}><strong>Ja Morant</strong> - 26 Points 8 Rebounds 11 Assists 2 Steals 1 Block</span>
                 <span style={{margin: '20px'}}><strong>Luka Doncic</strong> - 41 Points 12 Rebounds 10 Assists 0 Steals 1 Block</span>
             </Marquee>
-            <div>
-                {scores}
-            </div>
         </>
     ) 
 }
