@@ -75,6 +75,46 @@ function Scoreboard() {
             timeLeft: '00:00',
             gameStatus: 'Final',
         },
+        {
+            teamOne: 'Rockets',
+            teamTwo: 'Raptors',
+            scoreOne: 121,
+            scoreTwo: 109,
+            timeLeft: '03:08',
+            gameStatus: 'Q3',
+        },
+        {
+            teamOne: 'Rockets',
+            teamTwo: 'Raptors',
+            scoreOne: 121,
+            scoreTwo: 109,
+            timeLeft: '03:08',
+            gameStatus: 'Q3',
+        },
+        {
+            teamOne: 'Rockets',
+            teamTwo: 'Raptors',
+            scoreOne: 121,
+            scoreTwo: 109,
+            timeLeft: '03:08',
+            gameStatus: 'Q3',
+        },
+        {
+            teamOne: 'Rockets',
+            teamTwo: 'Raptors',
+            scoreOne: 121,
+            scoreTwo: 109,
+            timeLeft: '03:08',
+            gameStatus: 'Q3',
+        },
+        {
+            teamOne: 'Rockets',
+            teamTwo: 'Raptors',
+            scoreOne: 121,
+            scoreTwo: 109,
+            timeLeft: '03:08',
+            gameStatus: 'Q3',
+        },
     ]
 
     function scoreboards() {
