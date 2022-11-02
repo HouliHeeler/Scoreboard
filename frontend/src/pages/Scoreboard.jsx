@@ -1,6 +1,5 @@
 // import {useState, useEffect} from 'react'
 import Marquee from 'react-fast-marquee'
-// import {nbaColours} from '../app/constants'
 // import Spinner from '../components/Spinner'
 
 function Scoreboard() {
@@ -78,23 +77,22 @@ function Scoreboard() {
         },
     ]
 
-    // function getColours(team) {
-    //     const teamName = team.split(" ").join("")
-    //     return nbaColours[0][teamName][0].home[0]
-    // }
-
     function scoreboards() {
         return (
             nbaScores.map(item => (
-                <div style={{border:'2px solid black', margin:'10px', width:'40%'}}>
-                    <img style={{width:'30px'}} alt='team logo' src="https://upload.wikimedia.org/wikipedia/fr/thumb/f/f3/Hornets_de_Charlotte_logo.svg/1200px-Hornets_de_Charlotte_logo.svg.png"></img>
-                    <span style={{margin:'10px'}}>{item.teamOne}</span>
-                    <span style={{margin:'10px'}}>{item.scoreOne}</span>
-                    <span style={{margin:'10px'}}>{item.scoreTwo}</span>
-                    <span style={{margin:'10px'}}>{item.teamTwo}</span>
-                    <img style={{width:'30px'}} alt='team logo' src="https://upload.wikimedia.org/wikipedia/fr/thumb/f/f3/Hornets_de_Charlotte_logo.svg/1200px-Hornets_de_Charlotte_logo.svg.png"></img>
-                    <br></br>
-                    <span style={{margin:'10px'}}>{item.gameStatus}{item.gameStatus !== 'Final' && `-${item.timeLeft}`}</span>
+                <div className='boxscore'>
+                    <div className='boxscore--teamOne'>
+                        <img alt='Team One Logo' src="https://upload.wikimedia.org/wikipedia/fr/thumb/f/f3/Hornets_de_Charlotte_logo.svg/1200px-Hornets_de_Charlotte_logo.svg.png"></img>
+                        <h3>{item.teamOne}</h3>
+                    </div>
+                    <div className='boxscore--scoretime'>
+                    <span >{item.gameStatus}{item.gameStatus !== 'Final' && `-${item.timeLeft}`}</span>
+                        <h3 className='boxscore--score'>{item.scoreOne}-{item.scoreTwo}</h3>
+                    </div>
+                    <div className='boxscore--teamTwo'>
+                        <img alt='Team Two Logo' src="https://upload.wikimedia.org/wikipedia/fr/thumb/f/f3/Hornets_de_Charlotte_logo.svg/1200px-Hornets_de_Charlotte_logo.svg.png"></img>
+                        <h3 >{item.teamTwo}</h3>
+                    </div>
                 </div>
             ))
         )
@@ -109,7 +107,9 @@ function Scoreboard() {
                 <span style={{margin:'20px'}}><strong>Ja Morant</strong> - 26 Points 8 Rebounds 11 Assists 2 Steals 1 Block</span>
                 <span style={{margin: '20px'}}><strong>Luka Doncic</strong> - 41 Points 12 Rebounds 10 Assists 0 Steals 1 Block</span>
             </Marquee>
+            <div className='boxscore--all'>
             {scoreboards()}
+            </div>
         </>
     ) 
 }
