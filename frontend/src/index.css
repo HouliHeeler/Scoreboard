@@ -137,6 +137,18 @@ h3 {
   background: none;
 }
 
+.standings--header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.standings--header > h5:hover {
+  color: #777;
+  cursor: pointer;
+}
+
 .standings--division {
   border: 2px solid black;
   margin: 20px;

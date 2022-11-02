@@ -38,9 +38,19 @@ function Standings() {
 
     // //Set up formatting for standings layout
 
-    function getConference(conference, divOne, divTwo, divThree) {
+    const [standingsFormat, setStandingsFormat] = useState(true)
+
+    function conference() {
+        setStandingsFormat(false)
+    }
+
+    function division() {
+        setStandingsFormat(true)
+    }
+
+    function divisionStandings(conference, divOne, divTwo, divThree) {
         return (
-            <section className="standings--conference">
+            <section>
                 <h2>{conference} Conference</h2>
                 {getDivision(divOne)}
                 {getDivision(divTwo)}
@@ -54,7 +64,7 @@ function Standings() {
             <div className='standings--division'>
                 <h3>{division} Division</h3>
                 <div className="standings--grid">
-                {allStandings(division)}
+                {allStandings(division, 'division')}
                 </div>
             </div>  
         )
@@ -62,23 +72,20 @@ function Standings() {
 
     const headerArray = ['Team', 'Wins', 'Losses', 'Pct', 'Games Back', 'Last Ten', 'Streak']
 
-    function allStandings(division) {
+    function allStandings(division, filter) {
         return (
-            headerArray.map(heading => (
-                <div key={heading} className="standings--column">
+            headerArray.map((heading, idx) => (
+                <div key={idx} className="standings--column">
                     <div className="standings--header">{heading}</div>
-                    {standingsColumn(heading, division)}
+                    {standingsColumn(heading, division, filter)}
                 </div>
             ))
         )
     }
 
-    function standingsColumn(header, division) {
+    function standingsColumn(header, division, filter) {
         let firstEntry;
-        let secondEntry;
-        let thirdEntry;
-        let fourthEntry;
-        let winOrLoss;
+        let secondEntry
         switch (header) {
             case 'Team':
               firstEntry = "team";
@@ -102,22 +109,32 @@ function Standings() {
             case 'Last Ten':
               firstEntry = "win";
               secondEntry = 'lastTen'
-              thirdEntry = 'loss'
-              fourthEntry = 'lastTen'
               break;
             case 'Streak':
               firstEntry = "streak";
-              winOrLoss = 'winStreak'
               break;
             default:
-              firstEntry = "";
+              firstEntry = "No value found";
           } 
         return (
             <div>
-                {standingsData.filter(team => team.division.name === division.toLowerCase()).map((team, idx) => (
+                {standingsData.filter(team => team[filter]["name"] === division.toLowerCase()).map((team, idx) => (
                     <div key={idx} className="standings--box">{secondEntry ? team[firstEntry][secondEntry] : team[firstEntry]}</div>
                 ))}
             </div>
+        )
+    }
+
+    function conferenceStandings(conference) {
+        let conf;
+        conference === 'Eastern' ? conf = 'east' : conf = 'west'
+        return (
+            <section className="standings--division">
+                <h2>{conference} Conference</h2>
+                <div className='standings--grid'>
+                {allStandings(conf, 'conference')}
+                </div>
+            </section>
         )
     }
 
@@ -125,11 +142,19 @@ function Standings() {
         isLoading ? <Spinner /> : 
         <>
             <div>
-                <h1>Standings</h1>
-                <div>
-                    {getConference('Eastern', 'Atlantic', 'Central', 'Southeast')}
-                    {getConference('Western', 'Northwest', 'Pacific', 'Southwest')}
+                <div className='standings--header'>
+                    <h5 onClick={conference}>Conference</h5>
+                    <h1>Standings</h1>
+                    <h5 onClick={division}>Division</h5>
                 </div>
+                {standingsFormat ? <div>
+                    {divisionStandings('Eastern', 'Atlantic', 'Central', 'Southeast')}
+                    {divisionStandings('Western', 'Northwest', 'Pacific', 'Southwest')}
+                </div> :
+                <div>
+                    {conferenceStandings('Eastern')}
+                    {conferenceStandings('Western')}    
+                </div>}
             </div>
         </>
     )
