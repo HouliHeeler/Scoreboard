@@ -48,6 +48,19 @@ function Standings() {
         setStandingsFormat(true)
     }
 
+    function conferenceStandings(conference) {
+        let conf;
+        conference === 'Eastern' ? conf = 'east' : conf = 'west'
+        return (
+            <section className="standings--division">
+                <h2>{conference} Conference</h2>
+                <div className='standings--grid'>
+                {allStandings(conf, 'conference')}
+                </div>
+            </section>
+        )
+    }
+
     function divisionStandings(conference, divOne, divTwo, divThree) {
         return (
             <section>
@@ -70,7 +83,7 @@ function Standings() {
         )
     }
 
-    const headerArray = ['Team', 'Wins', 'Losses', 'Pct', 'Games Back', 'Last Ten', 'Streak']
+    const headerArray = ['Team', 'Wins', 'Losses', 'Pct', 'Last Ten', 'Streak']
 
     function allStandings(division, filter) {
         return (
@@ -83,9 +96,13 @@ function Standings() {
         )
     }
 
+    //Build and deploy a process of accessing the Standings API and calling data
+
     function standingsColumn(header, division, filter) {
         let firstEntry;
-        let secondEntry
+        let secondEntry;
+        let thirdEntry;
+        let winStreak;
         switch (header) {
             case 'Team':
               firstEntry = "team";
@@ -103,38 +120,50 @@ function Standings() {
               firstEntry = "win";
               secondEntry = "percentage"  
               break;
-            case 'Games Back':
-              firstEntry = "gamesBehind";
-              break;
             case 'Last Ten':
               firstEntry = "win";
-              secondEntry = 'lastTen'
+              secondEntry = "lastTen"
+              thirdEntry = "loss"
               break;
             case 'Streak':
               firstEntry = "streak";
+              winStreak = "winStreak"
               break;
             default:
               firstEntry = "No value found";
           } 
         return (
             <div>
-                {standingsData.filter(team => team[filter]["name"] === division.toLowerCase()).map((team, idx) => (
-                    <div key={idx} className="standings--box">{secondEntry ? team[firstEntry][secondEntry] : team[firstEntry]}</div>
+                {standingsData.filter(team => team[filter]["name"] === division.toLowerCase())
+                              .sort((a,b) => b['win']['percentage'] - a['win']['percentage'])
+                              .map((team, idx) => (
+                                <div style={{backgroundColor: idx%2===0 ? '#D3D3D3' : 'none'}} key={idx} className="standings--box">
+                                    {(() => {
+                                        if (team[winStreak] === false) {
+                                          return (
+                                            `L${team[firstEntry]}`
+                                          )
+                                        } else if (winStreak) {
+                                          return (
+                                            `W${team[firstEntry]}`
+                                          )
+                                        } else if (thirdEntry) {
+                                          return (
+                                            `${team[firstEntry][secondEntry]}-${team[thirdEntry][secondEntry]}`
+                                          )
+                                        } else if (secondEntry) {
+                                          return (
+                                            team[firstEntry][secondEntry]
+                                          )
+                                        } else {
+                                          return (
+                                            team[firstEntry]
+                                          )
+                                        }
+                                    })()}
+                                </div>
                 ))}
             </div>
-        )
-    }
-
-    function conferenceStandings(conference) {
-        let conf;
-        conference === 'Eastern' ? conf = 'east' : conf = 'west'
-        return (
-            <section className="standings--division">
-                <h2>{conference} Conference</h2>
-                <div className='standings--grid'>
-                {allStandings(conf, 'conference')}
-                </div>
-            </section>
         )
     }
 

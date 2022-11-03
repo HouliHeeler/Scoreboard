@@ -139,9 +139,8 @@ h3 {
 
 .standings--header {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 40px;
 }
 
 .standings--header > h5:hover {
@@ -157,7 +156,7 @@ h3 {
 
 .standings--grid {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 10px;
 }
 
