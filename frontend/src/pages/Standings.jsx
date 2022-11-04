@@ -34,8 +34,6 @@ function Standings() {
 
     // useEffect(getStandings, [])
 
-    console.log(standingsData)
-
     // //Set up formatting for standings layout
 
     const [standingsFormat, setStandingsFormat] = useState(true)
