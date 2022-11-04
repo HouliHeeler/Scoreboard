@@ -3,7 +3,7 @@ import Spinner from '../components/Spinner'
 
 function Standings() {
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     //Pull standings data from API
 
@@ -32,7 +32,7 @@ function Standings() {
           });
     }
 
-    useEffect(getStandings, [])
+    // useEffect(getStandings, [])
 
     console.log(standingsData)
 
@@ -170,7 +170,7 @@ function Standings() {
     return (
         isLoading ? <Spinner /> : 
         <>
-            <div>
+            {/* <div>
                 <div className='standings--header'>
                     <h5 onClick={conference}>Conference</h5>
                     <h1>Standings</h1>
@@ -184,7 +184,7 @@ function Standings() {
                     {conferenceStandings('Eastern')}
                     {conferenceStandings('Western')}    
                 </div>}
-            </div>
+            </div> */}
         </>
     )
 }

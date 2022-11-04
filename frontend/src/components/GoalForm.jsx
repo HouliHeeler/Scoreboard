@@ -1,11 +1,20 @@
 import {useState, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
-import {createGoal} from '../features/goals/goalSlice'
-// import { nbaPlayers } from '../app/constants'
+import {useDispatch, useSelector} from 'react-redux'
+import {createGoal, getGoals} from '../features/goals/goalSlice'
+import {toast} from 'react-toastify'
 
 function GoalForm() {
 
     const dispatch = useDispatch()
+
+    //Create array of selected favourite players to filter down API list
+
+    const {goals} = useSelector((state) => state.goals)
+    const goalsArray = goals.map(item => item['text'])
+                            .map(item => item.split(" ")
+                                             .reverse()
+                                             .join(', '))
+
 
     //Populate list of NBA Players for User to select favourite from
 
@@ -31,7 +40,7 @@ function GoalForm() {
 
     //Select Favourite Player
 
-    const [favouritePlayer, setFavouritePlayer] = useState('Precious Achiuwa')
+    const [favouritePlayer, setFavouritePlayer] = useState('Please Select Favourite Player')
 
     const onChange = (e) => {
       setFavouritePlayer(e.target.value)
@@ -40,7 +49,12 @@ function GoalForm() {
     const onSubmit = function(e) {
         e.preventDefault()
 
-        dispatch(createGoal({favouritePlayer}))
+        if(favouritePlayer === 'Please Select Favourite Player') {
+          toast.error('Be Better Than That')
+        }else {
+          setFavouritePlayer('Please Select Favourite Player')
+          dispatch(createGoal({favouritePlayer}))
+        }
     }
 
     return (
@@ -56,8 +70,11 @@ function GoalForm() {
                         placeholder="Select Favourite Player"
                         onChange={onChange}
                     >
-                        {nbaPlayers.filter(name => name.temporaryDisplayName).map((option, idx) => (
-                        <option key={idx}>{option.firstName} {option.lastName}</option>
+                        <option>Please Select Favourite Player</option>
+                        {nbaPlayers.filter(name => name.temporaryDisplayName)
+                                   .filter(name => !goalsArray.includes(name.temporaryDisplayName))
+                                   .map((option, idx) => (
+                                      <option key={idx}>{option.firstName} {option.lastName}</option>
                         ))}
                     </select>
                 </div>

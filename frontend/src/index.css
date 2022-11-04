@@ -97,22 +97,26 @@ h3 {
 
 .boxscore {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
-  padding: 20px 10px;
-  width: 40%;
+  padding: 20px 20px;
+  width: 45%;
   border: 2px solid black;
 }
 
-.boxscore--teamOne, .boxscore--teamTwo, .boxscore--scoretime {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+.boxscore > img {
+  width: 40px;
+  height: 40px;
 }
 
-.boxscore--teamOne > img, .boxscore--teamTwo > img {
-  width: 50px;
+.boxscore--teamname {
+  font-size: 1.3rem;
+}
+
+.boxscore--numbers {
+  display: flex;
+  flex-direction: column;
 }
 
 .goals {
