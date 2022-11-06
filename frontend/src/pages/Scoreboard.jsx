@@ -46,7 +46,7 @@ function Scoreboard() {
           });
     }
 
-    // useEffect(getScores, [])
+    useEffect(getScores, [])
 
     function scoreboards() {
         return (
@@ -90,7 +90,7 @@ function Scoreboard() {
     return (
         isLoading ? <Spinner /> :
         <>
-            {/* <Marquee 
+            <Marquee 
                 style={{border:'2px solid black'}}
                 pauseOnHover='true'>
                 <span style={{margin:'20px'}}><strong>Ja Morant</strong> - 26 Points 8 Rebounds 11 Assists 2 Steals 1 Block</span>
@@ -98,7 +98,7 @@ function Scoreboard() {
             </Marquee>
             <div className='boxscore--all'>
             {scoreboards()}
-            </div> */}
+            </div>
         </>
     ) 
 }

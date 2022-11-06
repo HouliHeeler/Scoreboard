@@ -32,7 +32,7 @@ function Standings() {
           });
     }
 
-    // useEffect(getStandings, [])
+    useEffect(getStandings, [])
 
     // //Set up formatting for standings layout
 
@@ -168,7 +168,7 @@ function Standings() {
     return (
         isLoading ? <Spinner /> : 
         <>
-            {/* <div>
+            <div>
                 <div className='standings--header'>
                     <h5 onClick={conference}>Conference</h5>
                     <h1>Standings</h1>
@@ -182,7 +182,7 @@ function Standings() {
                     {conferenceStandings('Eastern')}
                     {conferenceStandings('Western')}    
                 </div>}
-            </div> */}
+            </div>
         </>
     )
 }

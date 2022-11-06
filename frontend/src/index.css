@@ -60,7 +60,9 @@ h3 {
 }
 
 .header ul li {
+  display: flex;
   margin-left: 20px;
+  gap: 20px;
 }
 
 .header ul li a {

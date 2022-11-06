@@ -2,6 +2,7 @@ import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {logout, reset} from '../features/auth/authSlice'
+import {nbaColours} from '../app/constants'
 
 function Header() {
   const navigate = useNavigate()
@@ -13,6 +14,10 @@ function Header() {
     dispatch(reset())
     navigate('/')
   }
+
+  const favTeam = user.favouriteTeam.split(" ").join("")
+  const favColours = nbaColours.find(el => el[favTeam])
+  console.log(favColours.home)
 
   return (
     <header className='header'>
@@ -32,6 +37,9 @@ function Header() {
         <ul>
             {user ? 
             (<li>
+                <button className='btn' onClick={onLogout}>
+                    <h4>{user.favouriteTeam}</h4>
+                </button>
                 <button className='btn' onClick={onLogout}>
                     <FaSignOutAlt />Logout
                 </button>
