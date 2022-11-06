@@ -32,7 +32,7 @@ function Standings() {
           });
     }
 
-    useEffect(getStandings, [])
+    // useEffect(getStandings, [])
 
     // //Set up formatting for standings layout
 
@@ -174,14 +174,14 @@ function Standings() {
                     <h1>Standings</h1>
                     <h5 onClick={division}>Division</h5>
                 </div>
-                {standingsFormat ? <div>
+                {/* {standingsFormat ? <div>
                     {divisionStandings('Eastern', 'Atlantic', 'Central', 'Southeast')}
                     {divisionStandings('Western', 'Northwest', 'Pacific', 'Southwest')}
                 </div> :
                 <div>
                     {conferenceStandings('Eastern')}
                     {conferenceStandings('Western')}    
-                </div>}
+                </div>} */}
             </div>
         </>
     )

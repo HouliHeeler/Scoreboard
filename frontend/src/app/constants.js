@@ -32,14 +32,8 @@ export const nbaTeams = [
 ]
 
 export const nbaColours = [
-    {AtlantaHawks: [
-        {home: ["#C8102E", "#FDB927"]},
-        {away: ["#C8102E", "#FDB927"]}
-    ]},
-    {BostonCeltics: [
-        {home: ["#FFFFFF", "#007A33"]},
-        {away: ["#007A33", "#FFFFFF"]}
-    ]},
+    {AtlantaHawks: ["#C8102E", "#FDB927"]},
+    {BostonCeltics: ["#007A33", "#FFFFFF"]},
     {BrooklynNets: [
         {home: ["#C6CFD4", "#000000"]},
         {away: ["#000000", "#C6CFD4"]}

@@ -2,7 +2,8 @@ import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {logout, reset} from '../features/auth/authSlice'
-import {nbaColours} from '../app/constants'
+import {nbaColours, nbaTeams} from '../app/constants'
+import Dropdown from 'react-dropdown';
 
 function Header() {
   const navigate = useNavigate()
@@ -15,9 +16,16 @@ function Header() {
     navigate('/')
   }
 
+  //Find colours based on chosen team
+
   const favTeam = user.favouriteTeam.split(" ").join("")
-  const favColours = nbaColours.find(el => el[favTeam])
-  console.log(favColours.home)
+  const favColours = Object.values(nbaColours.find(el => el[favTeam]))
+  console.log(favColours[0][0])
+
+  //Dropdown Menu
+
+  const options = [...nbaTeams]
+  const defaultOption = user.favouriteTeam;
 
   return (
     <header className='header'>
@@ -37,9 +45,7 @@ function Header() {
         <ul>
             {user ? 
             (<li>
-                <button className='btn' onClick={onLogout}>
-                    <h4>{user.favouriteTeam}</h4>
-                </button>
+                <Dropdown options={options} value={defaultOption} placeholder="Select an option" />
                 <button className='btn' onClick={onLogout}>
                     <FaSignOutAlt />Logout
                 </button>
