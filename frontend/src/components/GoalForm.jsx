@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {createGoal, getGoals} from '../features/goals/goalSlice'
+import {createGoal} from '../features/goals/goalSlice'
 import {toast} from 'react-toastify'
 
 function GoalForm() {
@@ -15,25 +15,24 @@ function GoalForm() {
                                              .reverse()
                                              .join(', '))
 
-
     //Populate list of NBA Players for User to select favourite from
 
     const [nbaPlayers, setNbaPlayers] = useState([])
 
     function getNbaPlayers() {
-        fetch("https://data.nba.net/prod/v1/2022/players.json")
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("ERROR (response not ok)");
-          })
-          .then((data) => {
-            setNbaPlayers(data.league.standard);
-          })
-          .catch(() => {
-            console.log("error");
-          });
+      fetch("https://data.nba.net/prod/v1/2022/players.json")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("ERROR (response not ok)");
+      })
+      .then((data) => {
+        setNbaPlayers(data.league.standard);
+      })
+      .catch(() => {
+        console.log("error");
+      });
     }
 
     useEffect(getNbaPlayers, [])
