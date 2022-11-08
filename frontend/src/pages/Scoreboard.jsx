@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import Marquee from 'react-fast-marquee'
 import Spinner from '../components/Spinner'
 
@@ -128,7 +128,7 @@ function Scoreboard() {
 
     return (
         isLoading ? <Spinner /> :
-        <>
+        <div className='container--body'>
             <Marquee 
                 style={{border:'2px solid black'}}
                 pauseOnHover='true'>
@@ -138,7 +138,7 @@ function Scoreboard() {
             {/* <div className='boxscore--all'>
             {scoreboards()}
             </div> */}
-        </>
+        </div>
     ) 
 }
 

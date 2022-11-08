@@ -66,7 +66,7 @@ function Register() {
         return <Spinner />
     }
 
-    return <>
+    return <div className='container--body'>
         <section className='heading'>
             <h1>
                 <FaUser />Register
@@ -136,7 +136,7 @@ function Register() {
                 </div>
             </form>
         </section>
-    </>
+    </div>
 }
 
 export default Register

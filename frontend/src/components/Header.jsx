@@ -20,7 +20,11 @@ function Header() {
 
   const favTeam = user.favouriteTeam.split(" ").join("")
   const favColours = Object.values(nbaColours.find(el => el[favTeam]))
-  console.log(favColours[0][0])
+  const favColourHome = favColours[0][0]
+
+  //Style based on favourite team
+
+  const teamStyle ={ backgroundColor: favColourHome }
 
   //Dropdown Menu
 
@@ -28,7 +32,7 @@ function Header() {
   const defaultOption = user.favouriteTeam;
 
   return (
-    <header className='header'>
+    <header className='header' style={teamStyle}>
         <div className='logo'>
             <ul>
                 <li>

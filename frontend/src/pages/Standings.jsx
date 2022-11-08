@@ -167,23 +167,21 @@ function Standings() {
 
     return (
         isLoading ? <Spinner /> : 
-        <>
-            <div>
-                <div className='standings--header'>
-                    <h5 onClick={conference}>Conference</h5>
-                    <h1>Standings</h1>
-                    <h5 onClick={division}>Division</h5>
-                </div>
-                {/* {standingsFormat ? <div>
-                    {divisionStandings('Eastern', 'Atlantic', 'Central', 'Southeast')}
-                    {divisionStandings('Western', 'Northwest', 'Pacific', 'Southwest')}
-                </div> :
-                <div>
-                    {conferenceStandings('Eastern')}
-                    {conferenceStandings('Western')}    
-                </div>} */}
-            </div>
-        </>
+          <div className='container--body'>
+              <div className='standings--header'>
+                  <h5 onClick={conference}>Conference</h5>
+                  <h1>Standings</h1>
+                  <h5 onClick={division}>Division</h5>
+              </div>
+              {/* {standingsFormat ? <div>
+                  {divisionStandings('Eastern', 'Atlantic', 'Central', 'Southeast')}
+                  {divisionStandings('Western', 'Northwest', 'Pacific', 'Southwest')}
+              </div> :
+              <div>
+                  {conferenceStandings('Eastern')}
+                  {conferenceStandings('Western')}    
+              </div>} */}
+          </div>
     )
 }
 

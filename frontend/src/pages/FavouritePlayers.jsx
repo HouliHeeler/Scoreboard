@@ -36,7 +36,7 @@ function Dashboard() {
   }
 
   return (
-    <>
+    <div className='container--body'>
       <section className='heading'>
         <h1>Welcome {user && `${user.favouriteTeam} Fan!`}</h1>
         <p>Favourite Players</p>
@@ -51,7 +51,7 @@ function Dashboard() {
           </div>
         ) : (<h3>You Have No Favourite Players</h3>)}
       </section>
-    </>
+    </div>
   )
 }
 

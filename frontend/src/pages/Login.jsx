@@ -60,7 +60,7 @@ function Login() {
         return <Spinner />
     }
 
-    return <>
+    return <div className='container--body'>
         <section className='heading'>
             <h1>
                 <FaSignInAlt />Login
@@ -94,7 +94,7 @@ function Login() {
                 </div>
             </form>
         </section>
-    </>
+    </div>
 }
 
 export default Login
