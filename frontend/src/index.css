@@ -176,6 +176,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  overflow-y: scroll;
 }
 
 .standings--column {
