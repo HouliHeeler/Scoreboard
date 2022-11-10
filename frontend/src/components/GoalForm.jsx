@@ -17,7 +17,11 @@ function GoalForm() {
 
     //Populate list of NBA Players for User to select favourite from
 
-    const [nbaPlayers, setNbaPlayers] = useState([])
+    const [nbaPlayers, setNbaPlayers] = useState(() => {
+      const saved = localStorage.getItem('players')
+      const initialValue = JSON.parse(saved)
+      return initialValue || []
+    })
 
     function getNbaPlayers() {
       fetch("https://data.nba.net/prod/v1/2022/players.json")
@@ -28,14 +32,19 @@ function GoalForm() {
         throw new Error("ERROR (response not ok)");
       })
       .then((data) => {
-        setNbaPlayers(data.league.standard);
+        setNbaPlayers(data.league.standard)
+        localStorage.setItem("players", JSON.stringify(data.league.standard));
+        console.log('API was called')
       })
       .catch(() => {
         console.log("error");
       });
     }
 
-    useEffect(getNbaPlayers, [])
+    useEffect(() => {
+      if(localStorage.getItem('players') === null)
+      getNbaPlayers()
+    }, [])
 
     //Select Favourite Player
 
