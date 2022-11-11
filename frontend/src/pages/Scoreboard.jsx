@@ -5,18 +5,18 @@ import Spinner from '../components/Spinner'
 
 function Scoreboard() {
     // Return today's date in format required for API call
-    function getDate() {
-        let newDate = new Date()
-        let date = newDate.getDate();
-        let month = newDate.getMonth() + 1;
-        if(month < 10) {
-          month = '0' + month
-        }
-        let year = newDate.getFullYear();
-        return `${year}-${month}-${date}`
-    }
+    // function getDate() {
+    //     let newDate = new Date()
+    //     let date = newDate.getDate();
+    //     let month = newDate.getMonth() + 1;
+    //     if(month < 10) {
+    //       month = '0' + month
+    //     }
+    //     let year = newDate.getFullYear();
+    //     return `${year}-${month}-${date}`
+    // }
 
-    const currentDate = getDate()
+    // const currentDate = getDate()
 
     // Find Favourite Player IDs
 
@@ -89,8 +89,8 @@ function Scoreboard() {
 
     function scoreboards() {
         return (
-            scores.map(item => (
-                <div className='boxscore'>
+            scores.map((item, idx) => (
+                <div key={idx} className='boxscore'>
                     <img alt='Home Team Logo' src={item.teams.home.logo}></img>
                     <span className='boxscore--teamname'>{item.teams.home.nickname}</span>
                     <div className='boxscore--numbers'>
