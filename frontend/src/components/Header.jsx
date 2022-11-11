@@ -5,7 +5,7 @@ import {logout, reset} from '../features/auth/authSlice'
 import {nbaTeams} from '../app/constants'
 import Dropdown from 'react-dropdown';
 
-function Header({colour, handleChange, team}) {
+function Header({colour, handleChange, team, colourAway}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()  
   const {user} = useSelector((state) => state.auth)
@@ -16,7 +16,7 @@ function Header({colour, handleChange, team}) {
     navigate('/')
   }
 
-  const teamStyle = {backgroundColor: colour}
+  const teamStyle = {backgroundColor: colour, color: colourAway}
 
   //Dropdown Menu
 

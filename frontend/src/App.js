@@ -22,6 +22,9 @@ function App() {
   const favTeam = user.favouriteTeam.split(" ").join("")
   const favColours = Object.values(nbaColours.find(el => el[favTeam]))
   const favColourHome = favColours[0][0]
+  const favColourAway = favColours[0][1]
+
+  //Check local storage for team/colour selections
 
   const [team, setTeam] = useState(() => {
     const saved = localStorage.getItem('team')
@@ -35,15 +38,26 @@ function App() {
     return initialValue || favColourHome
   })
 
+  const [colourAway, setColourAway] = useState(() => {
+    const saved = localStorage.getItem('colourAway')
+    const initialValue = JSON.parse(saved)
+    return initialValue || favColourAway
+  })
+
+  //Set team, colour selections and save them to local storage
+
   function handleChange(e) {
     const currentTeam = e.value.split(" ").join("")
     const currentColours = Object.values(nbaColours.find(el => el[currentTeam]))
     const currentColourHome = currentColours[0][0]
+    const currentColourAway = currentColours[0][1]
 
     setTeam(e.value)
     setColour(currentColourHome)
+    setColourAway(currentColourAway)
     
     localStorage.setItem('colour', JSON.stringify(currentColourHome))
+    localStorage.setItem('colourAway', JSON.stringify(currentColourAway))
     localStorage.setItem('team', JSON.stringify(team))
   }
 
@@ -51,7 +65,7 @@ function App() {
     <>
       <Router>
         <div className='container'>
-          <Header colour={colour} handleChange={handleChange} team={team} />
+          <Header colourAway={colourAway} colour={colour} handleChange={handleChange} team={team} />
           <Routes>
             <Route path='/' element={<Scoreboard />} />
             <Route path='/favouriteplayers' element={<FavouritePlayers />} />
@@ -59,7 +73,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
           </Routes>
-          <Footer />
+          <Footer colour={colour} colourAway={colourAway}/>
         </div>
       </Router>
       <ToastContainer />
