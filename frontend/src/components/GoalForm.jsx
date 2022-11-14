@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {createGoal} from '../features/goals/goalSlice'
 import {toast} from 'react-toastify'
+import {teamCodes} from '../app/constants'
 
 function GoalForm() {
 
@@ -34,7 +35,6 @@ function GoalForm() {
       .then((data) => {
         setNbaPlayers(data.league.standard)
         localStorage.setItem("players", JSON.stringify(data.league.standard));
-        console.log('API was called')
       })
       .catch(() => {
         console.log("error");
@@ -65,6 +65,8 @@ function GoalForm() {
         }
     }
 
+    console.log(teamCodes[1610612737])
+
     return (
         <section className='form'>
             <form onSubmit={onSubmit}>
@@ -82,7 +84,7 @@ function GoalForm() {
                         {nbaPlayers.filter(name => name.temporaryDisplayName)
                                    .filter(name => !goalsArray.includes(name.temporaryDisplayName))
                                    .map((option, idx) => (
-                                      <option key={idx}>{option.firstName} {option.lastName}</option>
+                                      <option key={idx}>{option.firstName} {option.lastName} - {teamCodes[option.teamId]}</option>
                         ))}
                     </select>
                 </div>
