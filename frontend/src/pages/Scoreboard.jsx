@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Marquee from 'react-fast-marquee'
 import Spinner from '../components/Spinner'
 
@@ -18,43 +18,15 @@ function Scoreboard() {
 
     // const currentDate = getDate()
 
-    // Find Favourite Player IDs
+    //Get Favourite Players and respective teams
 
-    // const {goals} = useSelector((state) => state.goals)
+    const {goals} = useSelector((state) => state.goals)
 
-    // const playerLastName = goals[0]['text'].split(" ")[1]
-    // const playerFirstName = goals[0]['text'].split(" ")[0]
-    // const playerLastNames = goals.map(player => player['text'].split(" ")[1])
-    // const playerFirstNames = goals.map(player => player['text'].split(" ")[0])
-    
-    // const [playerID, setPlayerID] = useState('')
+    const text = goals.map(player => player['text'])
+    const team = text.map(text => text.split("-")[1].trim())
+    const player = text.map(text => text.split("-")[0].trim().split(" ").reverse().join(", "))
 
-    // function findPlayerID() {
-    //   fetch(`https://api-nba-v1.p.rapidapi.com/players?search=${playerLastName}`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
-    //             'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
-    //         }
-    //   })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       return response.json();
-    //     }
-    //     throw new Error("ERROR (response not ok)");
-    //   })
-    //   .then((data) => {
-    //     setPlayerID(data.response);
-    //   })
-    //   .catch(() => {
-    //     console.log("error");
-    //   });
-    // }
-
-    // useEffect(findPlayerID, [playerLastName])
-
-    // const chosenPlayer = playerID.filter(player => player['firstname' === playerFirstName])
-    // console.log(playerLastName)
+    console.log(team, player)
 
     //Pull live scores from API using current date
 

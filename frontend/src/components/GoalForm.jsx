@@ -12,7 +12,9 @@ function GoalForm() {
 
     const {goals} = useSelector((state) => state.goals)
     const goalsArray = goals.map(item => item['text'])
-                            .map(item => item.split(" ")
+                            .map(item => item.split("-")[0]
+                                             .trim()
+                                             .split(" ")
                                              .reverse()
                                              .join(', '))
 
@@ -64,8 +66,6 @@ function GoalForm() {
           dispatch(createGoal({favouritePlayer}))
         }
     }
-
-    console.log(teamCodes[1610612737])
 
     return (
         <section className='form'>
