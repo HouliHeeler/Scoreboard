@@ -6,7 +6,7 @@ function GoalItem({ goal }) {
     const dispatch = useDispatch()
 
     return (
-      <div className="goal">
+      <div className="goal" >
         <h2>
             {goal.text}
         </h2>

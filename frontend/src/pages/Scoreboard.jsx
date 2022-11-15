@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import { useSelector } from 'react-redux'
 import Marquee from 'react-fast-marquee'
 import Spinner from '../components/Spinner'
 
@@ -17,16 +16,6 @@ function Scoreboard({colour, colourAway}) {
     }
 
     const currentDate = getDate()
-
-    //Get Favourite Players and respective teams
-
-    const {goals} = useSelector((state) => state.goals)
-
-    const text = goals.map(player => player['text'])
-    const team = text.map(text => text.split("-")[1].trim())
-    const player = text.map(text => text.split("-")[0].trim().split(" ").reverse().join(", "))
-
-    console.log(team, player)
 
     //Pull live scores from API using current date
 
@@ -59,6 +48,7 @@ function Scoreboard({colour, colourAway}) {
 
     useEffect(getScores, [currentDate])
 
+    //Style boxscore cards
     const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
 
     function scoreboards() {
@@ -109,11 +99,13 @@ function Scoreboard({colour, colourAway}) {
     return (
         isLoading ? <Spinner /> :
         <div className='container--body'>
-            <Marquee 
-                style={{border:'2px solid black'}}
-                pauseOnHover='true'>
-                <span style={{margin:'20px'}}><strong>Ja Morant</strong> - 26 Points 8 Rebounds 11 Assists 2 Steals 1 Block</span>
-                <span style={{margin: '20px'}}><strong>Luka Doncic</strong> - 41 Points 12 Rebounds 10 Assists 0 Steals 1 Block</span>
+            <Marquee style={{border: '1px solid black', padding: '10px'}}
+                     pauseOnHover='true'
+                     speed='15'>
+                <span style={{marginLeft: '20px'}}>Luka Doncic - 32 Points 11 Rebounds 1 5 Assists</span>
+                <span style={{margin: '20px'}}>Ja Morant - 27 Points 7 Rebounds 12 Assists</span>
+                <span style={{margin: '20px'}}>Trae Young - 29 Points 4 Rebounds 11 Assists</span>
+                <span style={{margin: '20px'}}>LeBron James - 16 Points 5 Rebounds 3 Assists</span>
             </Marquee>
             <div className='boxscore--all'>
             {scoreboards()}

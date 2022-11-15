@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import Spinner from '../components/Spinner'
 
-function Standings() {
+function Standings({colour, colourAway}) {
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -50,7 +50,7 @@ function Standings() {
         let conf;
         conference === 'Eastern' ? conf = 'east' : conf = 'west'
         return (
-            <section className="standings--division">
+            <section className="standings--division" style={teamStyle}>
                 <h2>{conference} Conference</h2>
                 <div className='standings--grid'>
                 {allStandings(conf, 'conference')}
@@ -72,7 +72,7 @@ function Standings() {
 
     function getDivision(division) {
         return (
-            <div className='standings--division'>
+            <div className='standings--division' style={teamStyle}>
                 <h3>{division} Division</h3>
                 <div className="standings--grid">
                 {allStandings(division, 'division')}
@@ -135,7 +135,7 @@ function Standings() {
                 {standingsData.filter(team => team[filter]["name"] === division.toLowerCase())
                               .sort((a,b) => b['win']['percentage'] - a['win']['percentage'])
                               .map((team, idx) => (
-                                <div style={{backgroundColor: idx%2===0 ? '#D3D3D3' : 'none'}} key={idx} className="standings--box">
+                                <div style={{borderBottom: '1px solid black'}} key={idx} className="standings--box">
                                     {(() => {
                                         if (team[winStreak] === false) {
                                           return (
@@ -165,9 +165,12 @@ function Standings() {
         )
     }
 
+    //Style standings
+    const teamStyle ={ backgroundColor: colour, boxShadow: `4px 4px ${colourAway}`}
+
     return (
         isLoading ? <Spinner /> : 
-          <div className='container--body'>
+          <div className='container--body' >
               <div className='standings--header'>
                   <h5 onClick={conference}>Conference</h5>
                   <h1>Standings</h1>

@@ -58,7 +58,7 @@ function App() {
     
     localStorage.setItem('colour', JSON.stringify(currentColourHome))
     localStorage.setItem('colourAway', JSON.stringify(currentColourAway))
-    localStorage.setItem('team', JSON.stringify(team))
+    localStorage.setItem('team', JSON.stringify(e.value))
   }
 
   return (
@@ -69,7 +69,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Scoreboard colourAway={colourAway} colour={colour} />} />
             <Route path='/favouriteplayers' element={<FavouritePlayers />} />
-            <Route path='/standings' element={<Standings />} />
+            <Route path='/standings' element={<Standings colourAway={colourAway} colour={colour} />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
           </Routes>

@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner'
 import { getGoals, reset } from '../features/goals/goalSlice'
 
 
-function Dashboard() {
+function Dashboard({colour, colourAway}) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -38,15 +38,14 @@ function Dashboard() {
   return (
     <div className='container--body'>
       <section className='heading'>
-        <h1>Welcome {user && `${user.favouriteTeam} Fan!`}</h1>
-        <p>Favourite Players</p>
+        <h2>Favourite Players</h2>
       </section>
       <GoalForm />
       <section className='content'>
         {goals.length > 0 ? (
           <div className='goals'>
             {goals.map((goal) => (
-              <GoalItem key={goal._id} goal={goal}/>
+              <GoalItem key={goal._id} goal={goal} colour={colour} colourAway={colourAway} />
             ))}
           </div>
         ) : (<h3>You Have No Favourite Players</h3>)}
