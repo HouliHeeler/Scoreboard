@@ -118,7 +118,7 @@ h3 {
   align-items: center;
   margin-top: 20px;
   padding: 20px 20px;
-  width: 45%;
+  width: 49%;
   border: 2px solid black;
 }
 
@@ -129,11 +129,13 @@ h3 {
 
 .boxscore--teamname {
   font-size: 1.3rem;
+  width: 20%;
 }
 
 .boxscore--numbers {
   display: flex;
   flex-direction: column;
+  width: 20%;
 }
 
 .goals {

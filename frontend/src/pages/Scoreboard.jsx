@@ -3,20 +3,20 @@ import { useSelector } from 'react-redux'
 import Marquee from 'react-fast-marquee'
 import Spinner from '../components/Spinner'
 
-function Scoreboard() {
+function Scoreboard({colour, colourAway}) {
     // Return today's date in format required for API call
-    // function getDate() {
-    //     let newDate = new Date()
-    //     let date = newDate.getDate();
-    //     let month = newDate.getMonth() + 1;
-    //     if(month < 10) {
-    //       month = '0' + month
-    //     }
-    //     let year = newDate.getFullYear();
-    //     return `${year}-${month}-${date}`
-    // }
+    function getDate() {
+        let newDate = new Date()
+        let date = newDate.getDate() + 1;
+        let month = newDate.getMonth() + 1;
+        if(month < 10) {
+          month = '0' + month
+        }
+        let year = newDate.getFullYear();
+        return `${year}-${month}-${date}`
+    }
 
-    // const currentDate = getDate()
+    const currentDate = getDate()
 
     //Get Favourite Players and respective teams
 
@@ -35,7 +35,7 @@ function Scoreboard() {
     const [isLoading, setIsLoading] = useState(false)
 
     function getScores() {
-        fetch('https://api-nba-v1.p.rapidapi.com/games?live=all', {
+        fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
@@ -57,12 +57,14 @@ function Scoreboard() {
           });
     }
 
-    useEffect(getScores, [])
+    useEffect(getScores, [currentDate])
+
+    const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
 
     function scoreboards() {
         return (
             scores.map((item, idx) => (
-                <div key={idx} className='boxscore'>
+                <div key={idx} className='boxscore' style={teamStyle} >
                     <img alt='Home Team Logo' src={item.teams.home.logo}></img>
                     <span className='boxscore--teamname'>{item.teams.home.nickname}</span>
                     <div className='boxscore--numbers'>
@@ -78,6 +80,12 @@ function Scoreboard() {
                                                 return (
                                                   "Final"
                                                 )
+                                            } else if (item.status.long === 'Scheduled') {
+                                                let time = item.date['start']
+                                                let timeChunk = time.split("T")[1].slice(0,5)
+                                                let hour = Number(timeChunk.slice(0,2)) + 4
+                                                let startTime = hour.toString() + timeChunk.substring(2)
+                                                return `${startTime}PM`
                                             } else {
                                                 return (
                                                     `Q${item.periods.current + 1} 15:00`

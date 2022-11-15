@@ -67,7 +67,7 @@ function App() {
         <div className='container'>
           <Header colourAway={colourAway} colour={colour} handleChange={handleChange} team={team} />
           <Routes>
-            <Route path='/' element={<Scoreboard />} />
+            <Route path='/' element={<Scoreboard colourAway={colourAway} colour={colour} />} />
             <Route path='/favouriteplayers' element={<FavouritePlayers />} />
             <Route path='/standings' element={<Standings />} />
             <Route path='/login' element={<Login />} />
