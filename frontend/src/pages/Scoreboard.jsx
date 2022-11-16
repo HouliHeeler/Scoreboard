@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import Marquee from 'react-fast-marquee'
+import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
 
 function Scoreboard({colour, colourAway}) {
@@ -99,13 +100,10 @@ function Scoreboard({colour, colourAway}) {
     return (
         isLoading ? <Spinner /> :
         <div className='container--body'>
-            <Marquee style={{border: '1px solid black', padding: '10px'}}
+            <Marquee style={{border: '1px solid black', height: '50px'}}
                      pauseOnHover='true'
                      speed='15'>
-                <span style={{marginLeft: '20px'}}>Luka Doncic - 32 Points 11 Rebounds 1 5 Assists</span>
-                <span style={{margin: '20px'}}>Ja Morant - 27 Points 7 Rebounds 12 Assists</span>
-                <span style={{margin: '20px'}}>Trae Young - 29 Points 4 Rebounds 11 Assists</span>
-                <span style={{margin: '20px'}}>LeBron James - 16 Points 5 Rebounds 3 Assists</span>
+                <MarqueeData scores={scores} />
             </Marquee>
             <div className='boxscore--all'>
             {scoreboards()}
