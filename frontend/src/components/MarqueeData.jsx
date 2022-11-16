@@ -32,8 +32,6 @@ function MarqueeData({scores}) {
   const playerNames = text.map(player => player.split("-")[0].trim())
   const team = text.map(text => text.split("-")[1].trim())
 
-  console.log(playerNames)
-
   //Filters out any games that do not include favourite players and gets the gameID's
   const favPlayerGames = scores.filter(game => team.includes(game.teams.visitors["name"]) || team.includes(game.teams.home["name"]))
   const gamesStarted = favPlayerGames.filter(game => game.status.long !== 'Scheduled')
