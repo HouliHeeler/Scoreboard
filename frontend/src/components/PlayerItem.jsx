@@ -1,16 +1,16 @@
 import {useDispatch} from 'react-redux'
-import {deleteGoal} from '../features/goals/goalSlice'
+import {deletePlayer} from '../features/players/playerSlice'
 import {nbaColours} from '../app/constants'
 
-function GoalItem({ goal }) {
+function PlayerItem({ player }) {
 
     const dispatch = useDispatch()
 
-    //Get colours and names from goal
+    //Get colours and names from player
 
-    const favTeam = goal['text'].split("-")[1].trim().split(" ").join("")
-    const playerName = goal['text'].split("-")[0].trim()
-    const teamName = goal['text'].split("-")[1].trim()
+    const favTeam = player['text'].split("-")[1].trim().split(" ").join("")
+    const playerName = player['text'].split("-")[0].trim()
+    const teamName = player['text'].split("-")[1].trim()
     const favColours = Object.values(nbaColours.find(el => el[favTeam]))
     const favColourHome = favColours[0][0]
     const favColourAway = favColours[0][1]
@@ -19,7 +19,7 @@ function GoalItem({ goal }) {
     const playerStyle = {backgroundColor: favColourHome, boxShadow: `3px 3px ${favColourAway}`}
 
     return (
-      <div className="goal" style={playerStyle}>
+      <div className="player" style={playerStyle}>
         <h2>
             {playerName}
         </h2>
@@ -27,7 +27,7 @@ function GoalItem({ goal }) {
             {teamName}
         </h2>
         <button 
-            onClick={() => dispatch(deleteGoal(goal._id))}
+            onClick={() => dispatch(deletePlayer(player._id))}
             className="close" 
             >
             X
@@ -36,4 +36,4 @@ function GoalItem({ goal }) {
     )
 }
 
-export default GoalItem
+export default PlayerItem

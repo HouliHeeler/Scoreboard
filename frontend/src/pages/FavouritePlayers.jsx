@@ -1,10 +1,10 @@
 import {useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
-import GoalForm from '../components/GoalForm'
-import GoalItem from '../components/GoalItem'
+import PlayerForm from '../components/PlayerForm'
+import PlayerItem from '../components/PlayerItem'
 import Spinner from '../components/Spinner'
-import { getGoals, reset } from '../features/goals/goalSlice'
+import { getPlayers, reset } from '../features/players/playerSlice'
 
 
 function Dashboard({colour}) {
@@ -13,7 +13,7 @@ function Dashboard({colour}) {
   const dispatch = useDispatch()
 
   const {user} = useSelector((state) => state.auth)
-  const {goals, isLoading, isError, message} = useSelector((state) => state.goals)
+  const {players, isLoading, isError, message} = useSelector((state) => state.players)
 
   useEffect(() => {
     if(isError) {
@@ -24,7 +24,7 @@ function Dashboard({colour}) {
       navigate('/login')
     }
 
-    dispatch(getGoals())
+    dispatch(getPlayers())
 
     return () => {
       dispatch(reset())
@@ -40,12 +40,12 @@ function Dashboard({colour}) {
       <section className='heading'>
         <h2>Favourite Players</h2>
       </section>
-      <GoalForm colour={colour} />
+      <PlayerForm colour={colour} />
       <section className='content'>
-        {goals.length > 0 ? (
-          <div className='goals'>
-            {goals.map((goal) => (
-              <GoalItem key={goal._id} goal={goal} />
+        {players.length > 0 ? (
+          <div className='players'>
+            {players.map((player) => (
+              <PlayerItem key={player._id} player={player} />
             ))}
           </div>
         ) : (<h3>You Have No Favourite Players</h3>)}

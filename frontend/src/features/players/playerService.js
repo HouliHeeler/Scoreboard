@@ -1,24 +1,24 @@
 import axios from 'axios'
 
-const API_URL = '/api/goals/'
+const API_URL = '/api/players/'
 
-//Create New Goals
+//Create New Players
 
-const createGoal = async(goalData, token) => {
+const createPlayer = async(playerData, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
 
-    const response = await axios.post(API_URL, goalData, config)
+    const response = await axios.post(API_URL, playerData, config)
 
     return response.data
 }
 
-//Get User Goals
+//Get User Players
 
-const getGoals = async(token) => {
+const getPlayers = async(token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
@@ -30,26 +30,26 @@ const getGoals = async(token) => {
     return response.data
 }
 
-//Delete User Goal
+//Delete User Player
 
-const deleteGoal = async(goalId, token) => {
+const deletePlayer = async(playerId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
 
-    const response = await axios.delete(API_URL + goalId, config)
+    const response = await axios.delete(API_URL + playerId, config)
 
     return response.data
 }
 
 //Export CRUD functions
 
-const goalService = {
-    createGoal,
-    getGoals,
-    deleteGoal,
+const playerService = {
+    createPlayer,
+    getPlayers,
+    deletePlayer,
 }
 
-export default goalService
+export default playerService

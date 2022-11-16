@@ -1,7 +1,7 @@
 import { useSelector, useDispatch} from 'react-redux'
 import { useNavigate} from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getGoals, reset } from '../features/goals/goalSlice'
+import { getPlayers, reset } from '../features/players/playerSlice'
 
 function MarqueeData({scores}) {
 
@@ -9,7 +9,7 @@ function MarqueeData({scores}) {
   const dispatch = useDispatch()
 
   const {user} = useSelector((state) => state.auth)
-  const {goals, isError, message} = useSelector((state) => state.goals)
+  const {players, isError, message} = useSelector((state) => state.players)
 
   useEffect(() => {
     if(isError) {
@@ -20,7 +20,7 @@ function MarqueeData({scores}) {
       navigate('/login')
     }
 
-    dispatch(getGoals())
+    dispatch(getPlayers())
 
     return () => {
       dispatch(reset())
@@ -28,7 +28,7 @@ function MarqueeData({scores}) {
   }, [user, navigate, isError, message, dispatch])
 
   //Return favourite players and respective teams
-  const text = goals.map(player => player['text'])
+  const text = players.map(player => player['text'])
   const playerNames = text.map(player => player.split("-")[0].trim())
   const team = text.map(text => text.split("-")[1].trim())
 

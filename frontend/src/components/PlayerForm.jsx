@@ -1,17 +1,17 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {createGoal} from '../features/goals/goalSlice'
+import {createPlayer} from '../features/players/playerSlice'
 import {toast} from 'react-toastify'
 import {teamCodes} from '../app/constants'
 
-function GoalForm({colour}) {
+function PlayerForm({colour}) {
 
     const dispatch = useDispatch()
 
     //Create array of selected favourite players to filter down API list
 
-    const {goals} = useSelector((state) => state.goals)
-    const goalsArray = goals.map(item => item['text'])
+    const {players} = useSelector((state) => state.players)
+    const playersArray = players.map(item => item['text'])
                             .map(item => item.split("-")[0]
                                              .trim()
                                              .split(" ")
@@ -63,7 +63,7 @@ function GoalForm({colour}) {
           toast.error('Be Better Than That')
         }else {
           setFavouritePlayer('Please Select Favourite Player')
-          dispatch(createGoal({favouritePlayer}))
+          dispatch(createPlayer({favouritePlayer}))
         }
     }
 
@@ -82,7 +82,7 @@ function GoalForm({colour}) {
                     >
                         <option>Please Select Favourite Player</option>
                         {nbaPlayers.filter(name => name.temporaryDisplayName)
-                                   .filter(name => !goalsArray.includes(name.temporaryDisplayName))
+                                   .filter(name => !playersArray.includes(name.temporaryDisplayName))
                                    .map((option, idx) => (
                                       <option key={idx}>{option.firstName} {option.lastName} - {teamCodes[option.teamId]}</option>
                         ))}
@@ -98,4 +98,4 @@ function GoalForm({colour}) {
     )
 }
 
-export default GoalForm
+export default PlayerForm

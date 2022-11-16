@@ -144,13 +144,13 @@ h3 {
   width: 20%;
 }
 
-.goals {
+.players {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-.goal {
+.player {
   background-color: #f4f4f4;
   border-radius: 5px;
   border: 1px solid black;
@@ -159,7 +159,7 @@ h3 {
   position: relative;
 }
 
-.goal .close {
+.player .close {
   position: absolute;
   top: 5px;
   right: 5px;
