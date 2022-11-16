@@ -64,8 +64,14 @@ h3 {
 }
 
 .footer {
-  padding: 20px;
-  border-top: 1px solid #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px
+}
+
+.logo {
+  max-width: 30%;
 }
 
 .header ul {

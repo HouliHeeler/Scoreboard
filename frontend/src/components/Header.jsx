@@ -31,7 +31,7 @@ function Header({colour, handleChange, team, colourAway}) {
                     <Link to="/">Scoreboard</Link>
                 </li>
                 <li>
-                    <Link to="/favouriteplayers">Favourite Players</Link>
+                    <Link to="/favouriteplayers">Favourites</Link>
                 </li>
                 <li>
                 <Link to="/standings">Standings</Link>

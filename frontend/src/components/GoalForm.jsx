@@ -4,7 +4,7 @@ import {createGoal} from '../features/goals/goalSlice'
 import {toast} from 'react-toastify'
 import {teamCodes} from '../app/constants'
 
-function GoalForm() {
+function GoalForm({colour}) {
 
     const dispatch = useDispatch()
 
@@ -89,7 +89,7 @@ function GoalForm() {
                     </select>
                 </div>
                 <div className='form-group'>
-                  <button className='btn btn-block' type='submit'>
+                  <button className='btn btn-block' type='submit' style={{backgroundColor: colour}}>
                     Add Favourite
                   </button>
                 </div>
