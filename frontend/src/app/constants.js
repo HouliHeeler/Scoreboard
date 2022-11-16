@@ -47,7 +47,7 @@ export const nbaColours = [
     {LosAngelesClippers: ["#1D428A", "#000000"]},
     {LosAngelesLakers: ["#552583", "#FDB927"]},
     {MemphisGrizzlies: ["#5D76A9", "#12173F"]},
-    {MiamiHeat: ["#98002E", "FFFFFF"]},
+    {MiamiHeat: ["#98002E", "#000000"]},
     {MilwaukeeBucks: ["#00471B", "#EEE1C6"]},
     {MinnesotaTimberwolves: ["#236192", "#9EA2A2"]},
     {NewOrleansPelicans: ["#85714D", "#0C2340"]},
