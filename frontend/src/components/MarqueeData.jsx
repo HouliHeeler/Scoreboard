@@ -55,32 +55,36 @@ function MarqueeData({scores}) {
           throw new Error("ERROR (response not ok)");
         })
         .then((data) => {
-          setStats(prevStats => [...prevStats, data.response]);
+          setStats(data.response);
           console.log('getStats called')
         })
         .catch(() => {
           console.log("error");
         });
   }
+  useEffect(() => {
+    getStats(11261)
+  },[])
 
-  if(gamesStarted.length > 0) {
-    gamesStarted.map(game => getStats(game.id))
-  }
+  console.log(individualStats)
+  
 
   function marqueeList() {
       return (
-          individualStats.map(item => (
-              <span style={{margin: '20px'}}>`${item.player.firstname} ${item.player.lastname} ${item.game.points} Points ${item.game.totReb} Rebounds ${item.game.assists} Assists` ${item.game.steals} Steals ${item.game.blocks} Blocks ${item.game.turnovers} Turnovers</span>
+          individualStats.map((item, idx) => (
+              <span key={idx} style={{margin: '20px'}}>{item.player.firstname} {item.player.lastname} - {item.points} Points, {item.totReb} Rebounds, {item.assists} Assists, {item.steals} Steals, {item.blocks} Blocks, {item.turnovers} Turnovers</span>
           ))
       )
   }
 
   return (
-    <>
-    {stats.length === 0 ?
-      <span>Your players have no stats yet!</span> : 
-      {marqueeList}}
-    </>
+    stats.length === 0 ?
+      <>
+        <span>Your players have no stats yet!</span>
+      </> : 
+      <>
+      {marqueeList()}
+      </>
   )
 }
 
