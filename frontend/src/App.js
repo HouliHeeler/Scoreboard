@@ -19,10 +19,19 @@ function App() {
 
   //Find colours based on favourite team
 
-  const favTeam = user.favouriteTeam.split(" ").join("")
-  const favColours = Object.values(nbaColours.find(el => el[favTeam]))
-  const favColourHome = favColours[0][0]
-  const favColourAway = favColours[0][1]
+  let favTeam;
+  let favColours;
+  let favColourHome;
+  let favColourAway;
+
+  if(user) {
+    favTeam = user.favouriteTeam.split(" ").join("")
+    favColours = Object.values(nbaColours.find(el => el[favTeam]))
+    favColourHome = favColours[0][0]
+    favColourAway = favColours[0][1]
+  }
+  
+  
 
   //Check local storage for team/colour selections
 

@@ -31,7 +31,7 @@ function PlayerItem({ player }) {
             className="close" 
             >
             X
-            </button>
+        </button>
       </div>
     )
 }

@@ -81,7 +81,7 @@ function Standings({colour, colourAway}) {
         )
     }
 
-    const headerArray = ['Team', 'Wins', 'Losses', 'Pct', 'Last Ten', 'Streak']
+    const headerArray = ['Team', 'Win', 'Loss', 'Pct', 'L10', 'Streak']
 
     function allStandings(division, filter) {
         return (
@@ -106,11 +106,11 @@ function Standings({colour, colourAway}) {
               firstEntry = "team";
               secondEntry = 'name'
               break;
-            case 'Wins':
+            case 'Win':
               firstEntry = "win";
               secondEntry = 'total'
               break;
-            case 'Losses':
+            case 'Loss':
               firstEntry = "loss";
               secondEntry = 'total'
               break;
@@ -118,7 +118,7 @@ function Standings({colour, colourAway}) {
               firstEntry = "win";
               secondEntry = "percentage"  
               break;
-            case 'Last Ten':
+            case 'L10':
               firstEntry = "win";
               secondEntry = "lastTen"
               thirdEntry = "loss"
@@ -135,7 +135,7 @@ function Standings({colour, colourAway}) {
                 {standingsData.filter(team => team[filter]["name"] === division.toLowerCase())
                               .sort((a,b) => b['win']['percentage'] - a['win']['percentage'])
                               .map((team, idx) => (
-                                <div style={{borderBottom: '1px solid black'}} key={idx} className="standings--box">
+                                <div style={{borderBottom: '1px solid black'}} key={idx}>
                                     {(() => {
                                         if (team[winStreak] === false) {
                                           return (

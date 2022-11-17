@@ -8,7 +8,7 @@ function MarqueeData({scores}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const {user} = useSelector((state) => state.auth)
+  // const {user} = useSelector((state) => state.auth)
   const {players, isError, message} = useSelector((state) => state.players)
 
   useEffect(() => {
@@ -16,28 +16,29 @@ function MarqueeData({scores}) {
       console.log(message)
     }
 
-    if(!user) {
-      navigate('/login')
-    }
+    // if(!user) {
+    //   navigate('/login')
+    // }
 
     dispatch(getPlayers())
 
     return () => {
       dispatch(reset())
     }
-  }, [user, navigate, isError, message, dispatch])
+  }, [navigate, isError, message, dispatch])
 
   //Return favourite players and respective teams
   const text = players.map(player => player['text'])
   const playerNames = text.map(player => player.split("-")[0].trim())
   const team = text.map(text => text.split("-")[1].trim())
 
-  //Filters out any games that do not include favourite players and gets the gameID's
+  //Filters out any games that do not include favourite players, games that haven't started, and gets the gameID's
   const favPlayerGames = scores.filter(game => team.includes(game.teams.visitors["name"]) || team.includes(game.teams.home["name"]))
   const gamesStarted = favPlayerGames.filter(game => game.status.long !== 'Scheduled')
 
   const [stats, setStats] = useState([])
 
+  //Filters out favourite player stats from games fetched by getStats
   const individualStats = stats.filter(stats => playerNames.includes(`${stats.player.firstname} ${stats.player.lastname}`))
 
   function getStats(id) {
@@ -55,19 +56,24 @@ function MarqueeData({scores}) {
           throw new Error("ERROR (response not ok)");
         })
         .then((data) => {
-          setStats(data.response);
+          setStats(prevStats => [...prevStats, data.response]);
           console.log('getStats called')
         })
         .catch(() => {
           console.log("error");
         });
   }
-  useEffect(() => {
-    getStats(11261)
-  },[])
 
-  console.log(individualStats)
-  
+  //Sets a ten minute timer between getStats calls to limit API calls
+  const [wait, setWait] = useState(false)
+
+  if(gamesStarted.length > 0 || wait === false) {
+    gamesStarted.map(game => getStats(game.id))
+    setWait(true)
+    setInterval(() => {
+      setWait(false)
+    }, 600000)
+  }
 
   function marqueeList() {
       return (

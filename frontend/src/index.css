@@ -33,7 +33,7 @@ h1,
 h2,
 h3 {
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 
 .container {
@@ -41,8 +41,8 @@ h3 {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-  width: 100%;
-  max-width: 960px;
+  width: 100vw;
+  max-width: 100vw;
   margin: 0 auto;
   text-align: center;
 }
@@ -52,22 +52,21 @@ h3 {
   flex: 1 1 auto;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 20px;
+  padding: 1.5rem;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #e6e6e6;
+  padding: 1.5rem;
 }
 
-.footer {
+.footer, .footer--solo {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px
+  padding: .75rem
 }
 
 .logo {
@@ -82,8 +81,8 @@ h3 {
 
 .header ul li {
   display: flex;
-  margin-left: 20px;
-  gap: 20px;
+  margin-left: 1.5rem;
+  gap: 1rem;
 }
 
 .header ul li a {
@@ -95,15 +94,11 @@ h3 {
   color: #FFFFFF;
 }
 
-.header ul li a svg {
-  margin-right: 5px;
-}
-
 .heading {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 20px;
-  padding: 0 20px;
+  margin-bottom: 1.5rem;
+  padding: 0 1.5rem;
 }
 
 .heading p {
@@ -115,22 +110,22 @@ h3 {
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
 .boxscore {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  padding: 20px 20px;
+  margin-top: 1.5rem;
+  padding: 1.5rem 1.5rem;
   width: 49%;
   border: 2px solid black;
 }
 
 .boxscore > img {
-  width: 40px;
-  height: 40px;
+  width: 3rem;
+  height: 3rem;
 }
 
 .boxscore--teamname {
@@ -147,22 +142,22 @@ h3 {
 .players {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: .75rem;
 }
 
 .player {
   background-color: #f4f4f4;
   border-radius: 5px;
   border: 1px solid black;
-  margin: 10px 0;
-  padding: 20px 0 10px;
+  margin: .75rem 0;
+  padding: 1.5rem 0 .75rem;
   position: relative;
 }
 
 .player .close {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: .5rem;
+  right: .5rem;
   cursor: pointer;
   border: none;
   background: none;
@@ -185,14 +180,14 @@ h3 {
 
 .standings--division {
   border: 2px solid black;
-  margin: 20px;
-  padding-top: 5px;
+  margin: .5rem;
+  padding-top: .5rem;
 }
 
 .standings--grid {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: .75rem;
   overflow-y: scroll;
 }
 
@@ -203,9 +198,9 @@ h3 {
 
 .standings--header {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   border-bottom: 1px solid black;
-  margin-bottom: 5px;
+  margin-bottom: .5rem;
 }
 
 .form,
@@ -215,33 +210,33 @@ h3 {
 }
 
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: .75rem;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 10px;
+  padding: .75rem;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: .75rem;
   font-family: inherit;
 }
 
 .form-group label {
   text-align: left;
   display: block;
-  margin: 0 0 5px 3px;
+  margin: 0 0 .5rem .25rem;
 }
 
-.btn {
-  padding: 10px 20px;
+.btn, .btn--footer {
+  padding: 0 .75rem;
   border: 1px solid #000;
   border-radius: 5px;
   background: #000;
   color: #fff;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   text-align: center;
@@ -251,22 +246,14 @@ h3 {
   justify-content: center;
 }
 
-.btn svg {
-  margin-right: 8px;
-}
-
-.btn-reverse {
-  background: #fff;
-  color: #000;
-}
-
 .btn-block {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+  padding: .5rem;
 }
 
-.btn:hover {
-  transform: scale(0.98);
+.btn--footer {
+  display: none;
 }
 
 .loadingSpinnerContainer {
@@ -283,35 +270,12 @@ h3 {
 }
 
 .loadingSpinner {
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   border: 8px solid;
   border-color: #000 transparent #555 transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 600px) {
-  .form {
-    width: 90%;
-  }
-
-  .heading h1 {
-    font-size: 2rem;
-  }
-
-  .heading p {
-    font-size: 1.5rem;
-  }
 }
 
 /* Favourite Team Dropdown menu */
@@ -329,7 +293,7 @@ h3 {
   color: #FFFFFF;
   cursor: default;
   outline: none;
-  padding: 8px 52px 8px 10px;
+  padding: .75rem 3rem .75rem .75rem;
   transition: all 200ms ease;
 }
 
@@ -340,20 +304,20 @@ h3 {
 .Dropdown-arrow {
   border-color: #FFFFFF transparent transparent;
   border-style: solid;
-  border-width: 5px 5px 0;
+  border-width: .5rem .5rem 0;
   content: ' ';
   display: block;
   height: 0;
   margin-top: -ceil(2.5);
   position: absolute;
-  right: 10px;
-  top: 22px;
+  right: .75rem;
+  top: 1.5rem;
   width: 0
 }
 
 .is-open .Dropdown-arrow {
   border-color: transparent transparent #FFFFFF;
-  border-width: 0 5px 5px;
+  border-width: 0 .5rem .5rem;
 }
 
 .Dropdown-menu {
@@ -372,7 +336,7 @@ h3 {
 }
 
 .Dropdown-menu .Dropdown-group > .Dropdown-title{
-  padding: 8px 10px;
+  padding: .75rem .75rem;
   color: rgba(51, 51, 51, 1);
   font-weight: bold;
   text-transform: capitalize;
@@ -383,7 +347,7 @@ h3 {
   color: rgba(51, 51, 51, 0.8);
   cursor: pointer;
   display: block;
-  padding: 8px 10px;
+  padding: .75rem .75rem;
 }
 
 .Dropdown-option:last-child {
@@ -406,5 +370,79 @@ h3 {
   color: #ccc;
   cursor: default;
   display: block;
-  padding: 8px 10px;
+  padding: .75rem .75rem;
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 800px) {
+  * {
+    font-size: 16px;
+  }
+
+  .form {
+    width: 90%;
+  }
+
+  .heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+
+  .header {
+    padding: .5rem;
+  }
+
+  .header ul li {
+    margin-left: .25rem;
+  }
+
+  .Dropdown-control {
+    padding: .5rem;
+  }
+
+  .Dropdown-arrow {
+    display: none;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+  }
+
+  .btn--header {
+    display: none;
+  }
+
+  .btn--footer {
+    display: block;
+    padding: .5rem;
+  }
+
+  .boxscore {
+    width: 90%;
+  }
+
+  .players {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  * {
+    font-size: 12px;
+  }
+}
+

@@ -25,7 +25,8 @@ function Header({colour, handleChange, team, colourAway}) {
 
   return (
     <header className='header' style={teamStyle}>
-        <div className='logo'>
+        {user ?
+        (<div className='logo'>
             <ul>
                 <li>
                     <Link to="/">Scoreboard</Link>
@@ -37,12 +38,13 @@ function Header({colour, handleChange, team, colourAway}) {
                 <Link to="/standings">Standings</Link>
                 </li>
             </ul>
-        </div>
+        </div>) :
+        (<></>)}
         <ul>
             {user ? 
             (<li>
                 <Dropdown onChange={handleChange} options={options} value={defaultOption} />
-                <button className='btn' onClick={onLogout}>
+                <button className='btn btn--header' onClick={onLogout}>
                     <FaSignOutAlt />Logout
                 </button>
             </li>) : 
