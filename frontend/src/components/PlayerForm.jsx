@@ -44,8 +44,9 @@ function PlayerForm({colour}) {
     }
 
     useEffect(() => {
-      if(localStorage.getItem('players') === null)
-      getNbaPlayers()
+      if(localStorage.getItem('players') === null) {
+        getNbaPlayers()
+      }
     }, [])
 
     //Select Favourite Player

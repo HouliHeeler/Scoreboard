@@ -3,21 +3,21 @@ import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
 
-function Scoreboard({colour, colourAway}) {
+function Scoreboard({colour, colourAway, currentDate}) {
 
     // Return today's date in format required for API call
-    function getDate() {
-        let newDate = new Date()
-        let date = newDate.getDate() + 1;
-        let month = newDate.getMonth() + 1;
-        if(month < 10) {
-          month = '0' + month
-        }
-        let year = newDate.getFullYear();
-        return `${year}-${month}-${date}`
-    }
+    // function getDate() {
+    //     let newDate = new Date()
+    //     let date = newDate.getDate() + 1;
+    //     let month = newDate.getMonth() + 1;
+    //     if(month < 10) {
+    //       month = '0' + month
+    //     }
+    //     let year = newDate.getFullYear();
+    //     return `${year}-${month}-${date}`
+    // }
 
-    const currentDate = getDate()
+    // const currentDate = getDate()
 
     //Pull live scores from API using current date
 

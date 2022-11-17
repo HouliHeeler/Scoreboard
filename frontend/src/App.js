@@ -17,6 +17,21 @@ import { nbaColours } from './app/constants'
 function App() {
   const {user} = useSelector((state) => state.auth)
 
+  // Return today's date in format required for API call
+
+  function getDate() {
+    let newDate = new Date()
+    let date = newDate.getDate() + 1;
+    let month = newDate.getMonth() + 1;
+    if(month < 10) {
+      month = '0' + month
+    }
+    let year = newDate.getFullYear();
+    return `${year}-${month}-${date}`
+}
+
+  const currentDate = getDate()
+
   //Find colours based on favourite team
 
   let favTeam;
@@ -76,11 +91,23 @@ function App() {
         <div className='container'>
           <Header colourAway={colourAway} colour={colour} handleChange={handleChange} team={team} />
           <Routes>
-            <Route path='/' element={<Scoreboard colourAway={colourAway} colour={colour} />} />
-            <Route path='/favouriteplayers' element={<FavouritePlayers colour={colour} />} />
-            <Route path='/standings' element={<Standings colourAway={colourAway} colour={colour} />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+            <Route path='/' 
+                   element={<Scoreboard
+                   currentDate={currentDate} 
+                   colourAway={colourAway} 
+                   colour={colour} />} />
+            <Route path='/favouriteplayers' 
+                   element={<FavouritePlayers 
+                   colour={colour} />} />
+            <Route path='/standings' 
+                   element={<Standings
+                   currentDate={currentDate} 
+                   colourAway={colourAway} 
+                   colour={colour} />} />
+            <Route path='/login' 
+                   element={<Login />} />
+            <Route path='/register' 
+                   element={<Register />} />
           </Routes>
           <Footer colour={colour} />
         </div>
