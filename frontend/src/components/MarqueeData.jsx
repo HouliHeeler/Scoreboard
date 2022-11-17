@@ -8,7 +8,7 @@ function MarqueeData({scores}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // const {user} = useSelector((state) => state.auth)
+  const {user} = useSelector((state) => state.auth)
   const {players, isError, message} = useSelector((state) => state.players)
 
   useEffect(() => {
@@ -16,16 +16,16 @@ function MarqueeData({scores}) {
       console.log(message)
     }
 
-    // if(!user) {
-    //   navigate('/login')
-    // }
+    if(!user) {
+      navigate('/login')
+    }
 
     dispatch(getPlayers())
 
     return () => {
       dispatch(reset())
     }
-  }, [navigate, isError, message, dispatch])
+  }, [user, navigate, isError, message, dispatch])
 
   //Return favourite players and respective teams
   const text = players.map(player => player['text'])

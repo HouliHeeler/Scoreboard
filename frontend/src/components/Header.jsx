@@ -13,7 +13,7 @@ function Header({colour, handleChange, team, colourAway}) {
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
-    navigate('/')
+    navigate('/login')
   }
 
   const teamStyle = {backgroundColor: colour, color: colourAway}

@@ -4,6 +4,7 @@ import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
 
 function Scoreboard({colour, colourAway}) {
+
     // Return today's date in format required for API call
     function getDate() {
         let newDate = new Date()

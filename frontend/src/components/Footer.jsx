@@ -13,7 +13,7 @@ function Footer({colour}) {
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
-    navigate('/')
+    navigate('/login')
   }
 
   //Style based on chosen team
