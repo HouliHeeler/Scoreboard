@@ -56,7 +56,7 @@ export const nbaColours = [
     {OrlandoMagic: ["#0077C0", "#C4CED4"]},
     {Philadelphia76ers: ["#ED174C", "#006BB6"]},
     {PhoenixSuns: ["#E56020", "#1D1160"]},
-    {PortlandTrailblazers: ["#E03A3E", "FFFFFF"]},
+    {PortlandTrailblazers: ["#E03A3E", "#000000"]},
     {SacramentoKings: ["#5A2D81", "#000000"]},
     {SanAntonioSpurs: ["#C4CED4", "#000000"]},
     {TorontoRaptors: ["#CE1141", "#000000"]},

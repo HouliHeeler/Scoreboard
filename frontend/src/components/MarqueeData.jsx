@@ -56,8 +56,7 @@ function MarqueeData({scores}) {
           throw new Error("ERROR (response not ok)");
         })
         .then((data) => {
-          setStats(prevStats => [...prevStats, data.response]);
-          console.log('getStats called')
+          setStats(prevData => [...prevData, ...data.response]);
         })
         .catch(() => {
           console.log("error");
@@ -65,9 +64,10 @@ function MarqueeData({scores}) {
   }
 
   //Sets a ten minute timer between getStats calls to limit API calls
+  
   const [wait, setWait] = useState(false)
 
-  if(gamesStarted.length > 0 || wait === false) {
+  if(gamesStarted.length > 0 && wait === false) {
     gamesStarted.map(game => getStats(game.id))
     setWait(true)
     setInterval(() => {
@@ -75,10 +75,12 @@ function MarqueeData({scores}) {
     }, 600000)
   }
 
+  console.log(individualStats)
+
   function marqueeList() {
       return (
           individualStats.map((item, idx) => (
-              <span key={idx} style={{margin: '20px'}}>{item.player.firstname} {item.player.lastname} - {item.points} Points, {item.totReb} Rebounds, {item.assists} Assists, {item.steals} Steals, {item.blocks} Blocks, {item.turnovers} Turnovers</span>
+              <span key={idx} style={{margin: '20px'}}>{item.player.firstname} {item.player.lastname} - {item.points} Point{item.points !== 1 && 's'}, {item.totReb} Rebound{item.totReb !== 1 && 's'}, {item.assists} Assist{item.assists !== 1 && 's'}, {item.steals} Steal{item.steals !== 1 && 's'}, {item.blocks} Block{item.blocks !== 1 && 's'}, {item.turnovers} Turnover{item.turnovers !== 1 && 's'}</span>
           ))
       )
   }
