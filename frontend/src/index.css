@@ -307,7 +307,6 @@ h3 {
   content: ' ';
   display: block;
   height: 0;
-  margin-top: -ceil(2.5);
   position: absolute;
   right: .75rem;
   top: 1.5rem;

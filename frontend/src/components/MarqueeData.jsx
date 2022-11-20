@@ -57,6 +57,7 @@ function MarqueeData({scores}) {
         })
         .then((data) => {
           setStats(prevData => [...prevData, ...data.response]);
+          console.log('API called')
         })
         .catch(() => {
           console.log("error");
@@ -74,8 +75,6 @@ function MarqueeData({scores}) {
       setWait(false)
     }, 600000)
   }
-
-  console.log(individualStats)
 
   function marqueeList() {
       return (
