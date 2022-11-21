@@ -1,12 +1,29 @@
+import { useState } from "react"
 import Statlines from "./Statlines"
 
-function Scoreboards({scores, teamStyle, stats, colourAway}) {
+function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
+
+    //Set state with all playing teams set to false
+
+    const nbaHomeTeams = scores.map(item => item.teams.home.nickname)
+    const nbaAwayTeams = scores.map(item => item.teams.home.nickname) 
+    const nbaTeams = nbaHomeTeams.concat(nbaAwayTeams)
+    const nbaObject = nbaTeams.reduce((a,v) => ({...a, [v]: false}), {})
+
+    const [show, setShow] = useState(nbaObject)
+
+    console.log(show)
+
     return (
         scores.map((item, idx) => (
             <div className="scorecard">
                 <div key={idx} className='boxscore' style={teamStyle} >
                     <img alt='Home Team Logo' src={item.teams.home.logo}></img>
-                    <span className='boxscore--teamname'>{item.teams.home.nickname}</span>
+                    <span 
+                        className='boxscore--teamname' 
+                        >
+                                    {item.teams.home.nickname}
+                    </span>
                     <div className='boxscore--numbers'>
                         <h3 className='boxscore--score'>{item.scores.home.points}-{item.scores.visitors.points}</h3>
                         <span >
@@ -39,10 +56,21 @@ function Scoreboards({scores, teamStyle, stats, colourAway}) {
                                     })()}
                         </span>
                     </div>
-                    <span className='boxscore--teamname'>{item.teams.visitors.nickname}</span>
+                    <span 
+                        className='boxscore--teamname' 
+                        >
+                            {item.teams.visitors.nickname}
+                    </span>
                     <img alt='Away Team Logo' src={item.teams.visitors.logo}></img>
                 </div>
-                <Statlines stats={stats} homeTeam={item.teams.home.nickname} awayTeam={item.teams.visitors.nickname} colourAway={colourAway} />
+                <Statlines 
+                    stats={stats} 
+                    homeTeam={item.teams.home.nickname} 
+                    awayTeam={item.teams.visitors.nickname} 
+                    colourAway={colourAway}
+                    colour={colour} 
+                    show={show} 
+                />
             </div>
         ))
     )

@@ -84,7 +84,13 @@ function Scoreboard({colour, colourAway, currentDate}) {
                 <MarqueeData scores={scores} stats={stats}/>
             </Marquee>
             <div className='boxscore--all'>
-            <Scoreboards scores={scores} teamStyle={teamStyle} stats={stats} colourAway={colourAway} />
+            <Scoreboards 
+              scores={scores} 
+              teamStyle={teamStyle} 
+              stats={stats} 
+              colour={colour} 
+              colourAway={colourAway}
+              />
             </div>
         </div>
     ) 
