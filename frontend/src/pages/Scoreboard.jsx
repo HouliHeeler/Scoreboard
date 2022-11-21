@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
+import Scoreboards from '../components/Scoreboards'
 
 function Scoreboard({colour, colourAway, currentDate}) {
 
@@ -27,6 +28,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
           })
           .then((data) => {
             setScores(data.response);
+            console.log('Scores API')
           })
           .then(setIsLoading(false))
           .catch(() => {
@@ -36,53 +38,42 @@ function Scoreboard({colour, colourAway, currentDate}) {
 
     useEffect(getScores, [currentDate])
 
+    //Pull individual statistics from games
+
+    const [stats, setStats] = useState([])
+
+    function getStats(id) {
+        fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${id}`, {
+              method: 'GET',
+              headers: {
+                  'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
+                  'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
+              }
+            })
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              }
+              throw new Error("ERROR (response not ok)");
+            })
+            .then((data) => {
+              setStats(prevData => [...prevData, ...data.response]);
+              console.log('Stats API')
+            })
+            .catch(() => {
+              console.log("error");
+            });
+    }
+
+    useEffect(() => {
+        scores.map(game => getStats(game.id))
+    }, [scores])
+
+    console.log(stats)
+    console.log(scores)
+
     //Style boxscore cards
     const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
-
-    function scoreboards() {
-        return (
-            scores.map((item, idx) => (
-                <div key={idx} className='boxscore' style={teamStyle} >
-                    <img alt='Home Team Logo' src={item.teams.home.logo}></img>
-                    <span className='boxscore--teamname'>{item.teams.home.nickname}</span>
-                    <div className='boxscore--numbers'>
-                        <h3 className='boxscore--score'>{item.scores.home.points}-{item.scores.visitors.points}</h3>
-                        <span >
-                            {(() => {
-                                        if (item.status.clock === null) {
-                                            if(item.status.halftime) {
-                                                return (
-                                                    "Halftime"
-                                                  )
-                                            } else if (item.status.long === 'Finished') {
-                                                return (
-                                                  "Final"
-                                                )
-                                            } else if (item.status.long === 'Scheduled') {
-                                                let time = item.date['start']
-                                                let timeChunk = time.split("T")[1].slice(0,5)
-                                                let hour = Number(timeChunk.slice(0,2)) + 4
-                                                let startTime = hour.toString() + timeChunk.substring(2)
-                                                return `${startTime}PM`
-                                            } else {
-                                                return (
-                                                    `Q${item.periods.current + 1} 15:00`
-                                                )
-                                            }
-                                        }  else {
-                                          return (
-                                            `Q${item.periods.current} ${item.status.clock}`
-                                          )
-                                        }
-                                    })()}
-                        </span>
-                    </div>
-                    <span className='boxscore--teamname'>{item.teams.visitors.nickname}</span>
-                    <img alt='Away Team Logo' src={item.teams.visitors.logo}></img>
-                </div>
-            ))
-        )
-    }
 
     return (
         isLoading ? <Spinner /> :
@@ -90,10 +81,10 @@ function Scoreboard({colour, colourAway, currentDate}) {
             <Marquee style={{border: '1px solid black', height: '50px'}}
                      pauseOnHover='true'
                      speed='20'>
-                <MarqueeData scores={scores} />
+                <MarqueeData scores={scores} stats={stats}/>
             </Marquee>
             <div className='boxscore--all'>
-            {scoreboards()}
+            <Scoreboards scores={scores} teamStyle={teamStyle} stats={stats} colourAway={colourAway} />
             </div>
         </div>
     ) 

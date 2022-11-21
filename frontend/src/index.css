@@ -109,7 +109,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1.5rem;
 }
 
@@ -119,7 +119,8 @@ h3 {
   align-items: center;
   margin-top: 1.5rem;
   padding: 1.5rem 1.5rem;
-  width: 49%;
+  width: 45vw;
+  height: 8rem;
   border: 2px solid black;
 }
 
@@ -137,6 +138,35 @@ h3 {
   display: flex;
   flex-direction: column;
   width: 20%;
+}
+
+.statline {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  width: 100%;
+  font-size: .75rem;
+}
+
+.player--statline {
+  border: 1px solid black;
+}
+
+.player--statline > ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px 10px;
+}
+
+.player--statline > ul > li {
+  width: 15%;
+}
+
+.player--statline > ul > li:first-child {
+  width: 40%;
+  text-align: left;
 }
 
 .players {
