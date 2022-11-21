@@ -21,6 +21,8 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
                     <img alt='Home Team Logo' src={item.teams.home.logo}></img>
                     <span 
                         className='boxscore--teamname' 
+                        onClick={() => setShow(prevState => ({...prevState, [item.teams.home.nickname]: !prevState[item.teams.home.nickname]}))}
+                        style={{textDecoration: show[item.teams.home.nickname] && 'underline'}}
                         >
                                     {item.teams.home.nickname}
                     </span>
@@ -57,7 +59,9 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
                         </span>
                     </div>
                     <span 
-                        className='boxscore--teamname' 
+                        className='boxscore--teamname'
+                        onClick={() => setShow(prevState => ({...prevState, [item.teams.visitors.nickname]: !prevState[item.teams.visitors.nickname]}))}
+                        style={{textDecoration: show[item.teams.visitors.nickname] && "underline"}} 
                         >
                             {item.teams.visitors.nickname}
                     </span>
@@ -65,8 +69,10 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
                 </div>
                 <Statlines 
                     stats={stats} 
-                    homeTeam={item.teams.home.nickname} 
+                    homeTeam={item.teams.home.nickname}
+                    homeTeamFull={item.teams.home.name} 
                     awayTeam={item.teams.visitors.nickname} 
+                    awayTeamFull={item.teams.visitors.name}
                     colourAway={colourAway}
                     colour={colour} 
                     show={show} 
