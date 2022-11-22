@@ -15,8 +15,6 @@ function PlayerItem({ player }) {
     const favColourHome = favColours[0][0]
     const favColourAway = favColours[0][1]
 
-    console.log(favTeam)
-
     //Style favouritePlayer cards
     const playerStyle = {backgroundColor: favColourHome, boxShadow: `3px 3px ${favColourAway}`}
 

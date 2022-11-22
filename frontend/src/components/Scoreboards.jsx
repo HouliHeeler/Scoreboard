@@ -6,18 +6,16 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
     //Set state with all playing teams set to false
 
     const nbaHomeTeams = scores.map(item => item.teams.home.nickname)
-    const nbaAwayTeams = scores.map(item => item.teams.home.nickname) 
+    const nbaAwayTeams = scores.map(item => item.teams.visitors.nickname) 
     const nbaTeams = nbaHomeTeams.concat(nbaAwayTeams)
     const nbaObject = nbaTeams.reduce((a,v) => ({...a, [v]: false}), {})
 
     const [show, setShow] = useState(nbaObject)
 
-    console.log(show)
-
     return (
         scores.map((item, idx) => (
-            <div className="scorecard">
-                <div key={idx} className='boxscore' style={teamStyle} >
+            <div className="scorecard" key={idx}>
+                <div className='boxscore' style={teamStyle} >
                     <img alt='Home Team Logo' src={item.teams.home.logo}></img>
                     <span 
                         className='boxscore--teamname' 

@@ -452,8 +452,8 @@ h3 {
     display: none;
   }
 
-  .boxscore {
-    width: 90%;
+  .player--statline > ul > li {
+    font-size: .85rem;
   }
 
   .players {

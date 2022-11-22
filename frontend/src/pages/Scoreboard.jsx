@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
@@ -8,7 +8,11 @@ function Scoreboard({colour, colourAway, currentDate}) {
 
     //Pull live scores from API using current date
 
-    const [scores, setScores] = useState([])
+    const [scores, setScores] = useState(() => {
+      const saved = localStorage.getItem('scores')
+      const initialValue = JSON.parse(saved)
+      return initialValue || []
+    })
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -28,6 +32,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
           })
           .then((data) => {
             setScores(data.response);
+            localStorage.setItem('scores', JSON.stringify(data.response))
             console.log('Scores API')
           })
           .then(setIsLoading(false))
@@ -36,11 +41,19 @@ function Scoreboard({colour, colourAway, currentDate}) {
           });
     }
 
-    useEffect(getScores, [currentDate])
+    const lastDate = localStorage.getItem('currentDate')
+
+    if(localStorage.getItem('scores') === null || JSON.stringify(currentDate) !== lastDate) {
+      getScores()
+    }
 
     //Pull individual statistics from games
 
-    const [stats, setStats] = useState([])
+    const [stats, setStats] = useState(() => {
+      const saved = localStorage.getItem('stats')
+      const initialValue = JSON.parse(saved)
+      return initialValue || []
+    })
 
     function getStats(id) {
         fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${id}`, {
@@ -58,6 +71,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
             })
             .then((data) => {
               setStats(prevData => [...prevData, ...data.response]);
+              localStorage.setItem('stats', JSON.stringify(stats))
               console.log('Stats API')
             })
             .catch(() => {
@@ -65,12 +79,9 @@ function Scoreboard({colour, colourAway, currentDate}) {
             });
     }
 
-    useEffect(() => {
+    if(localStorage.getItem('stats') === null || JSON.stringify(currentDate) !== lastDate) {
         scores.map(game => getStats(game.id))
-    }, [scores])
-
-    console.log(stats)
-    console.log(scores)
+    }
 
     //Style boxscore cards
     const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
