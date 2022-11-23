@@ -3,6 +3,7 @@ import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
 import Scoreboards from '../components/Scoreboards'
+import {FaCloudDownloadAlt} from 'react-icons/fa'
 
 function Scoreboard({colour, colourAway, currentDate}) {
 
@@ -41,9 +42,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
           });
     }
 
-    const lastDate = localStorage.getItem('currentDate')
-
-    if(localStorage.getItem('scores') === null || JSON.stringify(currentDate) !== lastDate) {
+    if(localStorage.getItem('scores') === null) {
       getScores()
     }
 
@@ -79,7 +78,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
             });
     }
 
-    if(localStorage.getItem('stats') === null || JSON.stringify(currentDate) !== lastDate) {
+    if(localStorage.getItem('stats') === null) {
         scores.map(game => getStats(game.id))
     }
 
@@ -94,6 +93,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
                      speed='20'>
                 <MarqueeData scores={scores} stats={stats}/>
             </Marquee>
+            <FaCloudDownloadAlt />
             <div className='boxscore--all'>
             <Scoreboards 
               scores={scores} 
