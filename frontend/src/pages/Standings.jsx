@@ -41,9 +41,7 @@ function Standings({colour, colourAway, currentDate}) {
 
     //Only call Standings API if there is nothing in localStorage or the date has changed
 
-    const lastDate = localStorage.getItem('currentDate')
-
-    if(localStorage.getItem('standings' === null) || JSON.stringify(currentDate) !== lastDate) {
+    if(localStorage.getItem('standings' === null)) {
       getStandings()
     }
     

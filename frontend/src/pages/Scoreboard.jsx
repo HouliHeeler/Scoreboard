@@ -85,6 +85,12 @@ function Scoreboard({colour, colourAway, currentDate}) {
     //Style boxscore cards
     const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
 
+    //Handle Scores/Stats Refresh
+
+    function handleClick() {
+      console.log('click')
+    }
+
     return (
         isLoading ? <Spinner /> :
         <div className='container--body'>
@@ -93,7 +99,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
                      speed='20'>
                 <MarqueeData scores={scores} stats={stats}/>
             </Marquee>
-            <FaCloudDownloadAlt />
+            <FaCloudDownloadAlt className='refresh' onClick={handleClick}/>
             <div className='boxscore--all'>
             <Scoreboards 
               scores={scores} 
