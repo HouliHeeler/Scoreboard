@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
@@ -48,11 +48,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
 
     //Pull individual statistics from games
 
-    const [stats, setStats] = useState(() => {
-      const saved = localStorage.getItem('stats')
-      const initialValue = JSON.parse(saved)
-      return initialValue || []
-    })
+    const [stats, setStats] = useState([])
 
     function getStats(id) {
         fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${id}`, {
@@ -70,17 +66,19 @@ function Scoreboard({colour, colourAway, currentDate}) {
             })
             .then((data) => {
               setStats(prevData => [...prevData, ...data.response]);
-              localStorage.setItem('stats', JSON.stringify(stats))
               console.log('Stats API')
+              console.log(data.response)
             })
             .catch(() => {
               console.log("error");
             });
     }
 
-    if(localStorage.getItem('stats') === null) {
-        scores.map(game => getStats(game.id))
-    }
+    const [statsRan, setStatsRan] = useState(true)
+
+    useEffect(() => {
+      scores.map(game => getStats(game.Id))
+    }, [scores])
 
     //Style boxscore cards
     const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
@@ -88,7 +86,10 @@ function Scoreboard({colour, colourAway, currentDate}) {
     //Handle Scores/Stats Refresh
 
     function handleClick() {
-      console.log('click')
+      getScores()
+      getStats()
+      setStatsRan(prevState => !prevState)
+      console.log(statsRan)
     }
 
     return (
@@ -107,6 +108,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
               stats={stats} 
               colour={colour} 
               colourAway={colourAway}
+              statsRan={statsRan}
               />
             </div>
         </div>

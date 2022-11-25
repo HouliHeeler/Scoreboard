@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Statlines from "./Statlines"
 
-function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
+function Scoreboards({scores, teamStyle, stats, colour, colourAway, statsRan}) {
 
     //Set state with all playing teams set to false
 
@@ -67,13 +67,12 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
                 </div>
                 <Statlines 
                     stats={stats} 
-                    homeTeam={item.teams.home.nickname}
-                    homeTeamFull={item.teams.home.name} 
+                    homeTeam={item.teams.home.nickname} 
                     awayTeam={item.teams.visitors.nickname} 
-                    awayTeamFull={item.teams.visitors.name}
                     colourAway={colourAway}
                     colour={colour} 
-                    show={show} 
+                    show={show}
+                    statsRan={statsRan} 
                 />
             </div>
         ))

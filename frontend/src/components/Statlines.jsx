@@ -1,4 +1,6 @@
-function Statlines({stats, homeTeam, awayTeam, colourAway, colour, show, homeTeamFull, awayTeamFull}) {
+import { useEffect } from "react"
+
+function Statlines({stats, homeTeam, awayTeam, colourAway, colour, show, statsRan}) {
 
     //Filter out stats by team from array
 
@@ -21,6 +23,10 @@ function Statlines({stats, homeTeam, awayTeam, colourAway, colour, show, homeTea
             </div>
         )
     } 
+
+    useEffect(() => {
+        statsHeader()
+    }, [statsRan])
 
     return (
       <section className="statline" style={{boxShadow: `3px 3px ${colourAway}`}}>
