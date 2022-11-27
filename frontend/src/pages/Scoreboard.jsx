@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
@@ -40,6 +40,8 @@ function Scoreboard({colour, colourAway, currentDate}) {
           .catch(() => {
             console.log("error");
           });
+
+          getStats(scores)
     }
 
     if(localStorage.getItem('scores') === null) {
@@ -48,49 +50,69 @@ function Scoreboard({colour, colourAway, currentDate}) {
 
     //Pull individual statistics from games
 
-    const [stats, setStats] = useState([])
+    const [stats, setStats] = useState(() => {
+      const saved = localStorage.getItem('stats')
+      const initialValue = JSON.parse(saved)
+      return initialValue || []
+    })
 
-    function getStats(id) {
-        fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${id}`, {
-              method: 'GET',
-              headers: {
-                  'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
-                  'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
-              }
-            })
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              }
-              throw new Error("ERROR (response not ok)");
-            })
-            .then((data) => {
-              setStats(prevData => [...prevData, ...data.response]);
-              console.log('Stats API')
-              console.log(data.response)
-            })
-            .catch(() => {
-              console.log("error");
-            });
+    function getStats(scores) {
+      scores.forEach((game) =>
+      fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${game.id}`, {
+          method: 'GET',
+          headers: {
+              'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
+              'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
+          }
+        })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("ERROR (response not ok)");
+        })
+        .then((data) => {
+          setStats(prevData => [...prevData, ...data.response]);
+          console.log('Stats API')
+        })
+        .then(localStorage.setItem('stats', JSON.stringify(stats)))
+        .catch(() => {
+          console.log("error");
+      }))
     }
-
-    const [statsRan, setStatsRan] = useState(true)
-
-    useEffect(() => {
-      scores.map(game => getStats(game.Id))
-    }, [scores])
-
-    //Style boxscore cards
-    const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
+    
+    // useEffect(() => {
+    //   setStats([]);
+    //   scores.forEach((game) =>
+    //   fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${game.id}`, {
+    //       method: 'GET',
+    //       headers: {
+    //           'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
+    //           'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
+    //       }
+    //     })
+    //     .then((response) => {
+    //       if (response.ok) {
+    //         return response.json();
+    //       }
+    //       throw new Error("ERROR (response not ok)");
+    //     })
+    //     .then((data) => {
+    //       setStats(prevData => [...prevData, ...data.response]);
+    //       console.log('Stats API')
+    //     })
+    //     .catch(() => {
+    //       console.log("error");
+    //   }))}, [scores]);
 
     //Handle Scores/Stats Refresh
 
     function handleClick() {
       getScores()
-      getStats()
-      setStatsRan(prevState => !prevState)
-      console.log(statsRan)
     }
+
+    //Style boxscore cards
+    const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
 
     return (
         isLoading ? <Spinner /> :
@@ -108,7 +130,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
               stats={stats} 
               colour={colour} 
               colourAway={colourAway}
-              statsRan={statsRan}
               />
             </div>
         </div>

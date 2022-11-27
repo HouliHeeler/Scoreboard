@@ -30,7 +30,7 @@ function Standings({colour, colourAway, currentDate}) {
           .then((data) => {
             setStandingsData(data.response);
             localStorage.setItem('standings', JSON.stringify(data.response))
-            localStorage.setItem('currentDate', JSON.stringify(currentDate))
+            localStorage.setItem('lastUpdated', JSON.stringify(currentDate))
             console.log('Standings up to date')
           })
           .then(setIsLoading(false))
@@ -41,7 +41,14 @@ function Standings({colour, colourAway, currentDate}) {
 
     //Only call Standings API if there is nothing in localStorage or the date has changed
 
-    if(localStorage.getItem('standings' === null)) {
+    const parsedDate = JSON.parse(localStorage.getItem('lastUpdated'))
+
+    if(parsedDate !== currentDate) {
+      localStorage.removeItem('standings')
+      console.log('Standings Cleared')
+    }
+
+    if(localStorage.getItem('standings') === null) {
       getStandings()
     }
     

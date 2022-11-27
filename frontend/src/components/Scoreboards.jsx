@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Statlines from "./Statlines"
 
-function Scoreboards({scores, teamStyle, stats, colour, colourAway, statsRan}) {
+function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
 
     //Set state with all playing teams set to false
 
@@ -40,7 +40,15 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway, statsRan}) {
                                             } else if (item.status.long === 'Scheduled') {
                                                 let time = item.date['start']
                                                 let timeChunk = time.split("T")[1].slice(0,5)
-                                                let hour = Number(timeChunk.slice(0,2)) + 4
+                                                let hourInit = timeChunk.split(":")[0]
+                                                let hour;
+                                                if(hourInit === '20') {
+                                                  hour = 12
+                                                }else if (hourInit > 20) {
+                                                  hour = Number(timeChunk.slice(0,2)) - 20
+                                                }else {
+                                                  hour = Number(timeChunk.slice(0,2)) + 4
+                                                }
                                                 let startTime = hour.toString() + timeChunk.substring(2)
                                                 return `${startTime}PM`
                                             } else {
@@ -72,7 +80,6 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway, statsRan}) {
                     colourAway={colourAway}
                     colour={colour} 
                     show={show}
-                    statsRan={statsRan} 
                 />
             </div>
         ))
