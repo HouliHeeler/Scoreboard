@@ -1,9 +1,10 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Spinner from '../components/Spinner'
 import Scoreboards from '../components/Scoreboards'
-import {FaCloudDownloadAlt} from 'react-icons/fa'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 function Scoreboard({colour, colourAway, currentDate}) {
 
@@ -17,31 +18,31 @@ function Scoreboard({colour, colourAway, currentDate}) {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    function getScores() {
-        fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
+    async function getScores() {
+        await fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
                 'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
             }
         })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("ERROR (response not ok)");
-          })
-          .then((data) => {
-            setScores(data.response);
-            localStorage.setItem('scores', JSON.stringify(data.response))
-            console.log('Scores API')
-          })
-          .then(setIsLoading(false))
-          .catch(() => {
-            console.log("error");
-          });
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("ERROR (response not ok)");
+        })
+        .then((data) => {
+          setScores(data.response);
+          localStorage.setItem('scores', JSON.stringify(data.response))
+          console.log('Scores API')
+        })
+        .then(setIsLoading(false))
+        .catch(() => {
+          console.log("error");
+        });
 
-          getStats(scores)
+        await getStats(scores)
     }
 
     if(localStorage.getItem('scores') === null) {
@@ -56,8 +57,13 @@ function Scoreboard({colour, colourAway, currentDate}) {
       return initialValue || []
     })
 
-    function getStats(scores) {
-      scores.forEach((game) =>
+    useEffect(() => {
+      localStorage.setItem('stats', JSON.stringify(stats))
+    }, [stats])
+
+    async function getStats(scores) {
+      setStats([])
+      await scores.forEach((game) =>
       fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${game.id}`, {
           method: 'GET',
           headers: {
@@ -75,35 +81,10 @@ function Scoreboard({colour, colourAway, currentDate}) {
           setStats(prevData => [...prevData, ...data.response]);
           console.log('Stats API')
         })
-        .then(localStorage.setItem('stats', JSON.stringify(stats)))
         .catch(() => {
           console.log("error");
       }))
     }
-    
-    // useEffect(() => {
-    //   setStats([]);
-    //   scores.forEach((game) =>
-    //   fetch(`https://api-nba-v1.p.rapidapi.com/players/statistics?game=${game.id}`, {
-    //       method: 'GET',
-    //       headers: {
-    //           'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
-    //           'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
-    //       }
-    //     })
-    //     .then((response) => {
-    //       if (response.ok) {
-    //         return response.json();
-    //       }
-    //       throw new Error("ERROR (response not ok)");
-    //     })
-    //     .then((data) => {
-    //       setStats(prevData => [...prevData, ...data.response]);
-    //       console.log('Stats API')
-    //     })
-    //     .catch(() => {
-    //       console.log("error");
-    //   }))}, [scores]);
 
     //Handle Scores/Stats Refresh
 
@@ -122,7 +103,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
                      speed='20'>
                 <MarqueeData scores={scores} stats={stats}/>
             </Marquee>
-            <FaCloudDownloadAlt className='refresh' onClick={handleClick}/>
+            <FontAwesomeIcon icon={faRotateRight} className='refresh' onClick={handleClick}/>
             <div className='boxscore--all'>
             <Scoreboards 
               scores={scores} 

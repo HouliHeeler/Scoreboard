@@ -43,12 +43,7 @@ function Standings({colour, colourAway, currentDate}) {
 
     const parsedDate = JSON.parse(localStorage.getItem('lastUpdated'))
 
-    if(parsedDate !== currentDate) {
-      localStorage.removeItem('standings')
-      console.log('Standings Cleared')
-    }
-
-    if(localStorage.getItem('standings') === null) {
+    if(localStorage.getItem('standings') === null || parsedDate !== currentDate) {
       getStandings()
     }
     

@@ -3,7 +3,7 @@ import { useNavigate} from 'react-router-dom'
 import { useEffect } from 'react'
 import { getPlayers, reset } from '../features/players/playerSlice'
 
-function MarqueeData({scores, stats}) {
+function MarqueeData({stats}) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()

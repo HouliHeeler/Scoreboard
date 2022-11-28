@@ -120,6 +120,11 @@ h3 {
   width: 2rem;
 }
 
+.refresh:hover {
+  transform: rotate(360deg) scale(.9);
+  transition: 1s;
+}
+
 .scorecard {
   width: 90vw;
 }
