@@ -30,7 +30,6 @@ function Standings({colour, colourAway, currentDate}) {
           .then((data) => {
             setStandingsData(data.response);
             localStorage.setItem('standings', JSON.stringify(data.response))
-            localStorage.setItem('lastUpdated', JSON.stringify(currentDate))
             console.log('Standings up to date')
           })
           .then(setIsLoading(false))
@@ -44,6 +43,7 @@ function Standings({colour, colourAway, currentDate}) {
     const parsedDate = JSON.parse(localStorage.getItem('lastUpdated'))
 
     if(localStorage.getItem('standings') === null || parsedDate !== currentDate) {
+      localStorage.setItem('lastUpdated', JSON.stringify(currentDate))
       getStandings()
     }
     
