@@ -86,6 +86,15 @@ function Scoreboard({colour, colourAway, currentDate}) {
       }))
     }
 
+    //Only call Scores API if there is nothing in localStorage or the date has changed
+
+    const parsedDate = JSON.parse(localStorage.getItem('scoresUpdated'))
+
+    if(localStorage.getItem('scores') === null || parsedDate !== currentDate) {
+      localStorage.setItem('scoresUpdated', JSON.stringify(currentDate))
+      getScores()
+    }
+
     //Handle Scores/Stats Refresh
 
     function handleClick() {
@@ -104,6 +113,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
                 <MarqueeData scores={scores} stats={stats}/>
             </Marquee>
             <FontAwesomeIcon icon={faRotateRight} className='refresh' onClick={handleClick}/>
+            {scores.length === 0 ? <h1 style={{margin: "3rem"}}>No Games Today</h1> :
             <div className='boxscore--all'>
             <Scoreboards 
               scores={scores} 
@@ -112,7 +122,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
               colour={colour} 
               colourAway={colourAway}
               />
-            </div>
+            </div>}
         </div>
     ) 
 }
