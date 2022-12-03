@@ -26,6 +26,9 @@ function App() {
     if(month < 10) {
       month = '0' + month
     }
+    if(date < 10) {
+      date = '0' + date
+    }
     let year = newDate.getFullYear();
     return `${year}-${month}-${date}`
 }

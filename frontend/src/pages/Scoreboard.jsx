@@ -35,7 +35,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
         .then((data) => {
           setScores(data.response);
           localStorage.setItem('scores', JSON.stringify(data.response))
-          console.log('Scores API')
+          console.log(`Scores API for ${currentDate}`)
         })
         .then(setIsLoading(false))
         .catch(() => {
