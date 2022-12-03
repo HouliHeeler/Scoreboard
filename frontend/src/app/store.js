@@ -5,6 +5,6 @@ import playerReducer from '../features/players/playerSlice';
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    players: playerReducer
+    players: playerReducer,
   },
 });
