@@ -52,17 +52,23 @@ function App() {
   
 
   //Check local storage for team/colour selections
+  
+  let favouriteTeam;
+
+  if(user) {
+    favouriteTeam = user.favouriteTeam
+  }
 
   const [team, setTeam] = useState(() => {
     const saved = localStorage.getItem('team')
     const initialValue = JSON.parse(saved)
-    return initialValue || user.favouriteTeam
+    return initialValue || favouriteTeam || ''
   })
 
   const [colour, setColour] = useState(() => {
     const saved = localStorage.getItem('colour')
     const initialValue = JSON.parse(saved)
-    return initialValue || favColourHome
+    return initialValue || favColourHome || '#828282'
   })
 
   const [colourAway, setColourAway] = useState(() => {

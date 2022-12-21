@@ -1,8 +1,8 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {createPlayer} from '../features/players/playerSlice'
 import {toast} from 'react-toastify'
-import {teamCodes} from '../app/constants'
+import {playerNames} from '../app/constants'
 
 function PlayerForm({colour}) {
 
@@ -18,38 +18,42 @@ function PlayerForm({colour}) {
                                              .reverse()
                                              .join(', '))
 
+    //Abandoned because the API was shut down, hard-coded player names into constants.js
+
     //Populate list of NBA Players for User to select favourite from
 
-    const [nbaPlayers, setNbaPlayers] = useState(() => {
-      const saved = localStorage.getItem('players')
-      const initialValue = JSON.parse(saved)
-      return initialValue || []
-    })
+    // const [nbaPlayers, setNbaPlayers] = useState(() => {
+    //   const saved = localStorage.getItem('players')
+    //   const initialValue = JSON.parse(saved)
+    //   return initialValue || []
+    // })
 
-    function getNbaPlayers() {
-      fetch("https://data.nba.net/prod/v1/2022/players.json")
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("ERROR (response not ok)");
-      })
-      .then((data) => {
-        setNbaPlayers(data.league.standard)
-        localStorage.setItem("players", JSON.stringify(data.league.standard));
-      })
-      .catch(() => {
-        console.log("error");
-      });
-    }
+    // function getNbaPlayers() {
+    //   fetch("https://data.nba.net/prod/v1/2022/players.json")
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       return response.json();
+    //     }
+    //     throw new Error("ERROR (response not ok)");
+    //   })
+    //   .then((data) => {
+    //     setNbaPlayers(data.league.standard)
+    //     localStorage.setItem("players", JSON.stringify(data.league.standard));
+    //   })
+    //   .catch(() => {
+    //     console.log("error");
+    //   });
+    // }
 
-    useEffect(() => {
-      if(localStorage.getItem('players') === null) {
-        getNbaPlayers()
-      }
-    }, [])
+    // useEffect(() => {
+    //   if(localStorage.getItem('players') === null) {
+    //     getNbaPlayers()
+    //   }
+    // }, [])
 
     //Select Favourite Player
+
+    const nbaPlayers = playerNames
 
     const [favouritePlayer, setFavouritePlayer] = useState('Please Select Favourite Player')
 
@@ -82,10 +86,9 @@ function PlayerForm({colour}) {
                         onChange={onChange}
                     >
                         <option>Please Select Favourite Player</option>
-                        {nbaPlayers.filter(name => name.temporaryDisplayName)
-                                   .filter(name => !playersArray.includes(name.temporaryDisplayName))
+                        {nbaPlayers.filter(name => !playersArray.includes(name.temporaryDisplayName))
                                    .map((option, idx) => (
-                                      <option key={idx}>{option.firstName} {option.lastName} - {teamCodes[option.teamId]}</option>
+                                      <option key={idx}>{option.firstName} {option.lastName} - {option.teamName}</option>
                         ))}
                     </select>
                 </div>

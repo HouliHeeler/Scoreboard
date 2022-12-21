@@ -30,7 +30,7 @@ function Login() {
             toast.error(message)
         }
         
-        if(isSuccess) {
+        if(isSuccess || user) {
             navigate('/')
         }
 
