@@ -101,9 +101,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
       getScores()
     }
 
-    //Style boxscore cards
-    const teamStyle ={ backgroundColor: colour, boxShadow: `3px 3px ${colourAway}`}
-
     return (
         isLoading ? <Spinner /> :
         <div className='container--body'>
@@ -117,7 +114,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
             <div className='boxscore--all'>
             <Scoreboards 
               scores={scores} 
-              teamStyle={teamStyle} 
               stats={stats} 
               colour={colour} 
               colourAway={colourAway}

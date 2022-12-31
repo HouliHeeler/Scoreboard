@@ -1,9 +1,10 @@
 import { useState } from "react"
 import Statlines from "./Statlines"
+import { nbaColours } from "../app/constants"
 
-function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
+function Scoreboards({scores, stats, colour, colourAway}) {
 
-    //Set state with all playing teams set to false
+    //Set state with all playing teams set to false, this will be used to hide/show team statlines
 
     const nbaHomeTeams = scores.map(item => item.teams.home.nickname)
     const nbaAwayTeams = scores.map(item => item.teams.visitors.nickname) 
@@ -15,7 +16,9 @@ function Scoreboards({scores, teamStyle, stats, colour, colourAway}) {
     return (
         scores.map((item, idx) => (
             <div className="scorecard" key={idx}>
-                <div className='boxscore' style={teamStyle} >
+                <div className='boxscore' 
+                     //Styles boxscore to have a gradient progression from home team colour to white to away team colour at a 135 degree angle
+                     style={{background: `linear-gradient(135deg, ${Object.values(nbaColours.find(el => el[((item.teams.home.name).split(" ").join(""))]))[0][0]}, white, ${Object.values(nbaColours.find(el => el[((item.teams.visitors.name).split(" ").join(""))]))[0][0]})`}} >
                     <img alt='Home Team Logo' src={item.teams.home.logo}></img>
                     <span 
                         className='boxscore--teamname' 

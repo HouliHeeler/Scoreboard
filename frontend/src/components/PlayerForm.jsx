@@ -76,7 +76,7 @@ function PlayerForm({colour}) {
         <section className='form'>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
-                    <select
+                  <select
                         className='form-control'
                         type="text"
                         id='favouritePlayer'
