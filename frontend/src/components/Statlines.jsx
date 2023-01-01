@@ -1,4 +1,4 @@
-function Statlines({stats, homeTeam, awayTeam, colourAway, colour, show}) {
+function Statlines({stats, homeTeam, awayTeam, homeColour, awayColour, show}) {
 
     //Filter out stats by team from array
 
@@ -23,8 +23,8 @@ function Statlines({stats, homeTeam, awayTeam, colourAway, colour, show}) {
     } 
 
     return (
-      <section className="statline" style={{boxShadow: `3px 3px ${colourAway}`}}>
-          {show[homeTeam] && statsHeader(colour, homeTeam)}
+      <section className="statline" style={{boxShadow: `3px 3px black`}}>
+          {show[homeTeam] && statsHeader(homeColour, homeTeam)}
           {homeStats.map((item) => (
           <div 
             key={item.player.id} 
@@ -41,7 +41,7 @@ function Statlines({stats, homeTeam, awayTeam, colourAway, colour, show}) {
               </ul>
           </div>  
           ))}
-          {show[awayTeam] && statsHeader(colour, awayTeam)}
+          {show[awayTeam] && statsHeader(awayColour, awayTeam)}
           {awayStats.map((item) => (
           <div 
             key={item.player.id} 
