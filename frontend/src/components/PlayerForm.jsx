@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import Select from 'react-select'
 import {createPlayer} from '../features/players/playerSlice'
 import {toast} from 'react-toastify'
 import {playerNames} from '../app/constants'
@@ -53,12 +54,25 @@ function PlayerForm({colour}) {
 
     //Select Favourite Player
 
-    const nbaPlayers = playerNames
+    const unpickedPlayers = playerNames.filter(name => !playersArray.includes(name.temporaryDisplayName))
+    const options = [
+      {
+       value: "Precious Achiuwa - Toronto Raptors",
+       label: "Precious Achiuwa - Toronto Raptors"
+      },
+      {
+       value: "Steven Adams - Memphis Grizzlies",
+       label: "Steven Adams - Memphis Grizzlies"
+      },
+      {
+       value: "Bam Adebayo - Miami Heat",
+       label: "Bam Adebayo - Miami Heat"
+      }]
 
     const [favouritePlayer, setFavouritePlayer] = useState('Please Select Favourite Player')
 
     const onChange = (e) => {
-      setFavouritePlayer(e.target.value)
+      setFavouritePlayer(e.value)
   }
 
     const onSubmit = function(e) {
@@ -76,7 +90,7 @@ function PlayerForm({colour}) {
         <section className='form'>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
-                  <select
+                  {/* <select
                         className='form-control'
                         type="text"
                         id='favouritePlayer'
@@ -90,7 +104,8 @@ function PlayerForm({colour}) {
                                    .map((option, idx) => (
                                       <option key={idx}>{option.firstName} {option.lastName} - {option.teamName}</option>
                         ))}
-                    </select>
+                    </select> */}
+                  <Select options={options} onChange={onChange}/>
                 </div>
                 <div className='form-group'>
                   <button className='btn btn-block' type='submit' style={{backgroundColor: colour}}>
