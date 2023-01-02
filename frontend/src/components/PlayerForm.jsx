@@ -54,22 +54,13 @@ function PlayerForm({colour}) {
 
     //Select Favourite Player
 
-    const unpickedPlayers = playerNames.filter(name => !playersArray.includes(name.temporaryDisplayName))
-    const options = [
-      {
-       value: "Precious Achiuwa - Toronto Raptors",
-       label: "Precious Achiuwa - Toronto Raptors"
-      },
-      {
-       value: "Steven Adams - Memphis Grizzlies",
-       label: "Steven Adams - Memphis Grizzlies"
-      },
-      {
-       value: "Bam Adebayo - Miami Heat",
-       label: "Bam Adebayo - Miami Heat"
-      }]
+    const unpickedPlayers = playerNames.filter(name => !playersArray.includes(name.displayName))
+    const options = unpickedPlayers.map(item => ({value: `${item.firstName} ${item.lastName} - ${item.teamName}`, label: `${item.firstName} ${item.lastName} - ${item.teamName}`}))
+    console.log(playersArray)
+    console.log(unpickedPlayers)
+    console.log(options)
 
-    const [favouritePlayer, setFavouritePlayer] = useState('Please Select Favourite Player')
+    const [favouritePlayer, setFavouritePlayer] = useState('Select...')
 
     const onChange = (e) => {
       setFavouritePlayer(e.value)
@@ -78,10 +69,10 @@ function PlayerForm({colour}) {
     const onSubmit = function(e) {
         e.preventDefault()
 
-        if(favouritePlayer === 'Please Select Favourite Player') {
+        if(favouritePlayer === 'Select...') {
           toast.error('Be Better Than That')
         }else {
-          setFavouritePlayer('Please Select Favourite Player')
+          setFavouritePlayer('Select...')
           dispatch(createPlayer({favouritePlayer}))
         }
     }
@@ -90,21 +81,6 @@ function PlayerForm({colour}) {
         <section className='form'>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
-                  {/* <select
-                        className='form-control'
-                        type="text"
-                        id='favouritePlayer'
-                        name={favouritePlayer}
-                        value={favouritePlayer}
-                        placeholder="Select Favourite Player"
-                        onChange={onChange}
-                    >
-                        <option>Please Select Favourite Player</option>
-                        {nbaPlayers.filter(name => !playersArray.includes(name.temporaryDisplayName))
-                                   .map((option, idx) => (
-                                      <option key={idx}>{option.firstName} {option.lastName} - {option.teamName}</option>
-                        ))}
-                    </select> */}
                   <Select options={options} onChange={onChange}/>
                 </div>
                 <div className='form-group'>
