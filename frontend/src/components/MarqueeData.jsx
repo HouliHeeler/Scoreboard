@@ -1,7 +1,7 @@
 import { useSelector, useDispatch} from 'react-redux'
 import { useNavigate} from 'react-router-dom'
 import { useEffect } from 'react'
-import { getPlayers, reset } from '../features/players/playerSlice'
+import { reset } from '../features/players/playerSlice'
 
 function MarqueeData({stats}) {
 
@@ -12,20 +12,18 @@ function MarqueeData({stats}) {
   const {players, isError, message} = useSelector((state) => state.players)
 
   useEffect(() => {
-    if(isError) {
-      console.log(message)
-    }
-
     if(!user) {
       navigate('/login')
     }
 
-    dispatch(getPlayers())
+    if(isError) {
+      console.log(message)
+    }
 
     return () => {
       dispatch(reset())
     }
-  }, [user, navigate, isError, message, dispatch])
+  }, [user, navigate, isError, message, dispatch, stats])
 
   //Return favourite players and respective teams
   const text = players.map(player => player['text'])

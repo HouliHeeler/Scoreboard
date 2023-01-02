@@ -18,6 +18,12 @@ function Scoreboard({colour, colourAway, currentDate}) {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    //If no scores present in localStorage, get scores
+
+    if(localStorage.getItem('scores') === null) {
+      getScores()
+    }
+
     async function getScores() {
         await fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
             method: 'GET',
@@ -43,10 +49,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
         });
 
         await getStats(scores)
-    }
-
-    if(localStorage.getItem('scores') === null) {
-      getScores()
     }
 
     //Pull individual statistics from games

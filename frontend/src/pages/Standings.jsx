@@ -13,6 +13,14 @@ function Standings({colour, colourAway, currentDate}) {
       return initialValue || []
     })
 
+    //Only call Standings API if there is nothing in localStorage or the date has changed
+
+    const parsedDate = JSON.parse(localStorage.getItem('standingsUpdated'))
+
+    if(localStorage.getItem('standings') === null || parsedDate !== currentDate) {
+      getStandings()
+    }
+
     function getStandings() {
         fetch('https://api-nba-v1.p.rapidapi.com/standings?league=standard&season=2022', {
             method: 'GET',
@@ -30,21 +38,13 @@ function Standings({colour, colourAway, currentDate}) {
           .then((data) => {
             setStandingsData(data.response);
             localStorage.setItem('standings', JSON.stringify(data.response))
+            localStorage.setItem('standingsUpdated', JSON.stringify(currentDate))
             console.log('Standings up to date')
           })
           .then(setIsLoading(false))
           .catch(() => {
             console.log("error");
           });
-    }
-
-    //Only call Standings API if there is nothing in localStorage or the date has changed
-
-    const parsedDate = JSON.parse(localStorage.getItem('standingsUpdated'))
-
-    if(localStorage.getItem('standings') === null || parsedDate !== currentDate) {
-      localStorage.setItem('standingsUpdated', JSON.stringify(currentDate))
-      getStandings()
     }
     
     // //Set up formatting for standings layout

@@ -11,9 +11,9 @@ function Header({colour, handleChange, team, colourAway}) {
   const {user} = useSelector((state) => state.auth)
 
   const onLogout = () => {
+    navigate('/login')
     dispatch(logout())
     dispatch(reset())
-    navigate('/login')
   }
 
   const teamStyle = {backgroundColor: colour, color: colourAway}
