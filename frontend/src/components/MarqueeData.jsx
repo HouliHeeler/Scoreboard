@@ -1,7 +1,7 @@
 import { useSelector, useDispatch} from 'react-redux'
 import { useNavigate} from 'react-router-dom'
 import { useEffect } from 'react'
-import { reset } from '../features/players/playerSlice'
+import { getPlayers, reset } from '../features/players/playerSlice'
 
 function MarqueeData({stats}) {
 
@@ -18,6 +18,10 @@ function MarqueeData({stats}) {
 
     if(isError) {
       console.log(message)
+    }
+
+    if(user) {
+      dispatch(getPlayers())
     }
 
     return () => {

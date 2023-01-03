@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {useState} from 'react'
 import Spinner from '../components/Spinner'
 
@@ -17,7 +18,8 @@ function Standings({colour, colourAway, currentDate}) {
 
     const parsedDate = JSON.parse(localStorage.getItem('standingsUpdated'))
 
-    if(localStorage.getItem('standings') === null || parsedDate !== currentDate) {
+    if(standingsData === [] || parsedDate !== currentDate) {
+      localStorage.setItem('standingsUpdated', JSON.stringify(currentDate))
       getStandings()
     }
 
@@ -47,6 +49,10 @@ function Standings({colour, colourAway, currentDate}) {
           });
     }
     
+    useEffect(() => {
+      localStorage.setItem('standings', JSON.stringify(standingsData))
+    }, [standingsData])
+
     // //Set up formatting for standings layout
 
     const [standingsFormat, setStandingsFormat] = useState(true)
@@ -74,7 +80,7 @@ function Standings({colour, colourAway, currentDate}) {
 
     function divisionStandings(conference, divOne, divTwo, divThree) {
         return (
-            <section>
+            <section className='conference--container'>
                 <h2>{conference} Conference</h2>
                 {getDivision(divOne)}
                 {getDivision(divTwo)}

@@ -56,10 +56,7 @@ function PlayerForm({colour}) {
 
     const unpickedPlayers = playerNames.filter(name => !playersArray.includes(name.displayName))
     const options = unpickedPlayers.map(item => ({value: `${item.firstName} ${item.lastName} - ${item.teamName}`, label: `${item.firstName} ${item.lastName} - ${item.teamName}`}))
-    console.log(playersArray)
-    console.log(unpickedPlayers)
-    console.log(options)
-
+    
     const [favouritePlayer, setFavouritePlayer] = useState('Select...')
 
     const onChange = (e) => {
@@ -81,7 +78,9 @@ function PlayerForm({colour}) {
         <section className='form'>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
-                  <Select options={options} onChange={onChange}/>
+                  <Select options={options} 
+                          onChange={onChange}
+                          />
                 </div>
                 <div className='form-group'>
                   <button className='btn btn-block' type='submit' style={{backgroundColor: colour}}>
