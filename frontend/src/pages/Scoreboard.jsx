@@ -9,8 +9,6 @@ import { useEffect } from 'react'
 
 function Scoreboard({colour, colourAway, currentDate}) {
 
-    //Pull live scores from API using current date
-
     const [scores, setScores] = useState(() => {
       const saved = localStorage.getItem('scores')
       const initialValue = JSON.parse(saved)
@@ -28,8 +26,10 @@ function Scoreboard({colour, colourAway, currentDate}) {
       getScores()
     }
 
-    function getScores() {
-        fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
+    //Pull live scores from API using current date
+
+    async function getScores() {
+        await fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
@@ -47,7 +47,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
           localStorage.setItem('scores', JSON.stringify(data.response))
           localStorage.setItem('scoresUpdated', JSON.stringify(currentDate))
           getStats(data.response)
-          console.log(`Scores API for ${currentDate}`)
         })
         .then(setIsLoading(false))
         .catch(() => {
@@ -81,8 +80,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
         })
         .then((data) => {
           setStats(prevData => [...prevData, ...data.response]);
-          localStorage.setItem('stats', JSON.stringify(data.response))
-          console.log('Stats API')
         })
         .catch(() => {
           console.log("error");

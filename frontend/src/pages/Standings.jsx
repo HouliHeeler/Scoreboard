@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import {useState} from 'react'
 import Spinner from '../components/Spinner'
 
@@ -23,8 +22,8 @@ function Standings({colour, colourAway, currentDate}) {
       getStandings()
     }
 
-    function getStandings() {
-        fetch('https://api-nba-v1.p.rapidapi.com/standings?league=standard&season=2022', {
+    async function getStandings() {
+        await fetch('https://api-nba-v1.p.rapidapi.com/standings?league=standard&season=2022', {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
@@ -41,17 +40,12 @@ function Standings({colour, colourAway, currentDate}) {
             setStandingsData(data.response);
             localStorage.setItem('standings', JSON.stringify(data.response))
             localStorage.setItem('standingsUpdated', JSON.stringify(currentDate))
-            console.log('Standings up to date')
           })
           .then(setIsLoading(false))
           .catch(() => {
             console.log("error");
           });
     }
-    
-    useEffect(() => {
-      localStorage.setItem('standings', JSON.stringify(standingsData))
-    }, [standingsData])
 
     // //Set up formatting for standings layout
 

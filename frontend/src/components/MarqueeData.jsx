@@ -45,6 +45,10 @@ function MarqueeData({stats}) {
   }
 
   return (
+    players.length === 0 ? 
+      <>
+        <span>You have no favourite players yet!</span>
+      </>:
     individualStats.length === 0 ?
       <>
         <span>Your players have no stats yet!</span>
