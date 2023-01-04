@@ -9,9 +9,9 @@ function Statlines({stats, homeTeam, awayTeam, homeColour, awayColour, show}) {
 
     function statsHeader(colour, team) {
         return (
-            <div className="player--statline">
-                <ul style={{fontWeight: 600, backgroundColor: colour, margin: 0}}>
-                    <li style={{paddingLeft: '10px', fontSize: '1rem'}}>{team}</li>
+            <div className="player--stats">
+                <ul style={{fontWeight: 600, backgroundColor: colour, color: "aliceblue"}}>
+                    <li>{team}</li>
                     <li>Points</li>
                     <li>Rebounds</li>
                     <li>Assists</li>
@@ -28,7 +28,7 @@ function Statlines({stats, homeTeam, awayTeam, homeColour, awayColour, show}) {
           {homeStats.map((item) => (
           <div 
             key={item.player.id} 
-            className='player--statline'
+            className='player--stats'
             style={{display: !show[item.team.nickname] && 'none'}}
           >
               <ul>
@@ -45,7 +45,7 @@ function Statlines({stats, homeTeam, awayTeam, homeColour, awayColour, show}) {
           {awayStats.map((item) => (
           <div 
             key={item.player.id} 
-            className='player--statline'
+            className='player--stats'
             style={{display: !show[item.team.nickname] && 'none'}}
           >
               <ul>

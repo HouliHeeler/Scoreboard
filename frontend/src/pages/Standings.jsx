@@ -183,7 +183,7 @@ function Standings({colour, colourAway, currentDate}) {
 
     return (
         isLoading ? <Spinner /> : 
-          <div className='container--body' >
+          <div className='container--body'>
               <div className='standings--header'>
                   <h5 onClick={conference}>Conference</h5>
                   <h1>Standings</h1>

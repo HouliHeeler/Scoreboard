@@ -38,7 +38,7 @@ function Dashboard({colour}) {
   return (
     <div className='container--body'>
       <section className='heading'>
-        <h2>Favourite Players</h2>
+        <h2 style={{fontSize: "2.5rem"}}>Favourite Players</h2>
       </section>
       <PlayerForm colour={colour} />
       <section className='content'>

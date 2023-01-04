@@ -92,6 +92,7 @@ h3 {
 
 .header ul li a:hover {
   color: #FFFFFF;
+  text-decoration: underline;
 }
 
 .heading {
@@ -167,31 +168,52 @@ h3 {
   font-size: .75rem;
 }
 
-.player--statline {
-  border: 1px solid black;
-}
-
-.player--statline > ul{
+.players {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 2px 10px;
 }
 
-.player--statline > ul > li {
-  width: 15%;
+.player--statline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.player--statline > ul > li:first-child {
-  width: 40%;
+.player--statline > ul {
+  display: flex;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 10px;
+}
+
+.player--statline > ul > :first-child {
+  width: 1rem;
+}
+
+.player--statline > ul > :nth-child(2) {
+  width: 20rem;
   text-align: left;
 }
 
-.players {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: .75rem;
+.player--statline > ul > :nth-child(3) {
+  width: 20rem;
+  text-align: right;
+}
+
+.player--statline > ul > li {
+  margin: 5px;
+  color: aliceblue;
+}
+
+.close {
+  justify-self: left;
+  font-size: .85rem;
+  margin-right: 1rem;
+  cursor: pointer;
 }
 
 .player {
@@ -203,17 +225,28 @@ h3 {
   position: relative;
 }
 
-.player .close {
-  position: absolute;
-  top: .5rem;
-  right: .5rem;
-  cursor: pointer;
-  border: none;
-  background: none;
+.player--stats {
+  display: flex;
+  flex-direction: column;
+  font-size: .85rem;
+  border: 1px solid black;
 }
 
-.close {
-  color: white;
+.player--stats > ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.player--stats > ul > li {
+  width: 12%;
+  text-align: center;
+}
+
+.player--stats > ul > :first-child {
+  width: 40%;
+  text-align: left;
+  margin-left: .5rem;
 }
 
 .standings--header {
@@ -222,8 +255,17 @@ h3 {
   align-items: center;
 }
 
+.standings--header > h5 {
+  width: 20%;
+}
+
+.standings--header > h1 {
+  width: 60%;
+}
+
 .standings--header > h5:hover {
   color: #777;
+  text-decoration: underline;
   cursor: pointer;
 }
 
@@ -231,6 +273,7 @@ h3 {
   border: 2px solid black;
   margin: .5rem;
   padding-top: .5rem;
+  color: aliceblue;
 }
 
 .standings--grid {
@@ -255,9 +298,8 @@ h3 {
   margin-bottom: 2rem;
 }
 
-.form,
-.content {
-  width: 70%;
+.form, .content {
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -442,7 +484,7 @@ h3 {
     font-size: 16px;
   }
 
-  .form {
+  .form, .content {
     width: 90%;
   }
 
@@ -470,12 +512,16 @@ h3 {
     display: none;
   }
 
-  .player--statline > ul > li {
-    font-size: .85rem;
+  .player--statline > ul > li, .statline--header > ul > li {
+    font-size: .75rem;
   }
 
   .players {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .player--stats > ul > li{
+    font-size: .80rem
   }
 }
 
