@@ -1,7 +1,6 @@
 import {useState} from 'react'
 import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
-import Spinner from '../components/Spinner'
 import Scoreboards from '../components/Scoreboards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
@@ -14,8 +13,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
       const initialValue = JSON.parse(saved)
       return initialValue || []
     })
-
-    const [isLoading, setIsLoading] = useState(false)
 
     //If no scores present in localStorage, get scores
 
@@ -48,7 +45,6 @@ function Scoreboard({colour, colourAway, currentDate}) {
           localStorage.setItem('scoresUpdated', JSON.stringify(currentDate))
           getStats(data.response)
         })
-        .then(setIsLoading(false))
         .catch(() => {
           console.log("error");
         });
@@ -97,24 +93,23 @@ function Scoreboard({colour, colourAway, currentDate}) {
     }
 
     return (
-        isLoading ? <Spinner /> :
-        <div className='container--body'>
-            <Marquee style={{border: '1px solid black', height: '50px'}}
-                     pauseOnHover='true'
-                     speed='20'>
-                <MarqueeData scores={scores} stats={stats}/>
-            </Marquee>
-            <FontAwesomeIcon icon={faRotateRight} className='refresh' onClick={handleClick}/>
-            {scores.length === 0 ? <h1 style={{margin: "3rem"}}>No Games Today</h1> :
-            <div className='boxscore--all'>
-            <Scoreboards 
-              scores={scores} 
-              stats={stats} 
-              colour={colour} 
-              colourAway={colourAway}
-              />
-            </div>}
-        </div>
+      <div className='container--body'>
+          <Marquee style={{border: '1px solid black', height: '50px'}}
+                   pauseOnHover='true'
+                   speed='20'>
+              <MarqueeData scores={scores} stats={stats}/>
+          </Marquee>
+          <FontAwesomeIcon icon={faRotateRight} className='refresh' onClick={handleClick}/>
+          {scores.length === 0 ? <h1 style={{margin: "3rem"}}>No Games Today</h1> :
+          <div className='boxscore--all'>
+          <Scoreboards 
+            scores={scores} 
+            stats={stats} 
+            colour={colour} 
+            colourAway={colourAway}
+            />
+          </div>}
+      </div>
     ) 
 }
 

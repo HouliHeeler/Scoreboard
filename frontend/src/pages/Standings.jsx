@@ -1,9 +1,6 @@
 import {useState} from 'react'
-import Spinner from '../components/Spinner'
 
 function Standings({colour, colourAway, currentDate}) {
-
-    const [isLoading, setIsLoading] = useState(false)
 
     //Pull standings data from API
 
@@ -41,7 +38,6 @@ function Standings({colour, colourAway, currentDate}) {
             localStorage.setItem('standings', JSON.stringify(data.response))
             localStorage.setItem('standingsUpdated', JSON.stringify(currentDate))
           })
-          .then(setIsLoading(false))
           .catch(() => {
             console.log("error");
           });
@@ -181,23 +177,22 @@ function Standings({colour, colourAway, currentDate}) {
     //Style standings
     const teamStyle ={ backgroundColor: colour, boxShadow: `4px 4px ${colourAway}`}
 
-    return (
-        isLoading ? <Spinner /> : 
-          <div className='container--body'>
-              <div className='standings--header'>
-                  <h5 onClick={conference}>Conference</h5>
-                  <h1>Standings</h1>
-                  <h5 onClick={division}>Division</h5>
-              </div>
-              {standingsFormat ? <div>
-                  {divisionStandings('Eastern', 'Atlantic', 'Central', 'Southeast')}
-                  {divisionStandings('Western', 'Northwest', 'Pacific', 'Southwest')}
-              </div> :
-              <div>
-                  {conferenceStandings('Eastern')}
-                  {conferenceStandings('Western')}    
-              </div>}
+    return ( 
+      <div className='container--body'>
+          <div className='standings--header'>
+              <h5 onClick={conference}>Conference</h5>
+              <h1>Standings</h1>
+              <h5 onClick={division}>Division</h5>
           </div>
+          {standingsFormat ? <div>
+              {divisionStandings('Eastern', 'Atlantic', 'Central', 'Southeast')}
+              {divisionStandings('Western', 'Northwest', 'Pacific', 'Southwest')}
+          </div> :
+          <div>
+              {conferenceStandings('Eastern')}
+              {conferenceStandings('Western')}    
+          </div>}
+      </div>
     )
 }
 
