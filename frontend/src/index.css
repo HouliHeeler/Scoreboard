@@ -260,6 +260,7 @@ h3 {
 }
 
 .standings--header > h1 {
+  font-size: 2rem;
   width: 60%;
 }
 
