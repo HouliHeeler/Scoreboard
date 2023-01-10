@@ -1,10 +1,9 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Marquee from 'react-fast-marquee'
 import MarqueeData from '../components/MarqueeData'
 import Scoreboards from '../components/Scoreboards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons'
-import { useEffect } from 'react'
 
 function Scoreboard({colour, colourAway, currentDate}) {
 
@@ -13,50 +12,45 @@ function Scoreboard({colour, colourAway, currentDate}) {
       const initialValue = JSON.parse(saved)
       return initialValue || []
     })
+    
+    const [stats, setStats] = useState(() => {
+      const saved = localStorage.getItem('stats')
+      const initialValue = JSON.parse(saved)
+      return initialValue || []
+    })
 
-    //If no scores present in localStorage, get scores
+    //Handle Scores/Stats Refresh
 
-    const dateToday = JSON.parse(localStorage.getItem('scoresUpdated'))
-
-    if(scores === [] || dateToday !== currentDate) {
-      localStorage.setItem('scoresUpdated', JSON.stringify(currentDate))
+    function handleClick() {
       getScores()
     }
 
     //Pull live scores from API using current date
 
     async function getScores() {
-        await fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
-                'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
-            }
-        })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
+      await fetch(`https://api-nba-v1.p.rapidapi.com/games?date=${currentDate}`, {
+          method: 'GET',
+          headers: {
+              'X-RapidAPI-Key': '81f0f8a38bmsh024375d5af83615p170190jsnee4713d76fa2',
+              'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
           }
-          throw new Error("ERROR (response not ok)");
-        })
-        .then((data) => {
-          setScores(data.response);
-          localStorage.setItem('scores', JSON.stringify(data.response))
-          localStorage.setItem('scoresUpdated', JSON.stringify(currentDate))
-          getStats(data.response)
-        })
-        .catch(() => {
-          console.log("error");
-        });
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("ERROR (response not ok)");
+      })
+      .then((data) => {
+        setScores(data.response);
+        localStorage.setItem('scores', JSON.stringify(data.response))
+        console.log('Scores retrieved')
+        getStats(data.response)
+      })
+      .catch(() => {
+        console.log("error");
+      });
     }
-
-    //Pull individual statistics from games
-
-    const [stats, setStats] = useState(() => {
-      const saved = localStorage.getItem('stats')
-      const initialValue = JSON.parse(saved)
-      return initialValue || []
-    })
 
     async function getStats(scores) {
       setStats([])
@@ -76,6 +70,7 @@ function Scoreboard({colour, colourAway, currentDate}) {
         })
         .then((data) => {
           setStats(prevData => [...prevData, ...data.response]);
+          console.log("Stats retrieved")
         })
         .catch(() => {
           console.log("error");
@@ -83,14 +78,14 @@ function Scoreboard({colour, colourAway, currentDate}) {
     }
 
     useEffect(() => {
+      if(scores.length === 0) {
+        getScores()
+      }
+    }, [])
+
+    useEffect(() => {
       localStorage.setItem('stats', JSON.stringify(stats))
     }, [stats])
-
-    //Handle Scores/Stats Refresh
-
-    function handleClick() {
-      getScores()
-    }
 
     return (
       <div className='container--body'>

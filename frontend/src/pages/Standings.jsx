@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 function Standings({colour, colourAway, currentDate}) {
 
@@ -14,12 +14,8 @@ function Standings({colour, colourAway, currentDate}) {
 
     const parsedDate = JSON.parse(localStorage.getItem('standingsUpdated'))
 
-    if(standingsData === [] || parsedDate !== currentDate) {
-      localStorage.setItem('standingsUpdated', JSON.stringify(currentDate))
-      getStandings()
-    }
-
-    async function getStandings() {
+    useEffect(() => {
+      async function getStandings() {
         await fetch('https://api-nba-v1.p.rapidapi.com/standings?league=standard&season=2022', {
             method: 'GET',
             headers: {
@@ -37,11 +33,16 @@ function Standings({colour, colourAway, currentDate}) {
             setStandingsData(data.response);
             localStorage.setItem('standings', JSON.stringify(data.response))
             localStorage.setItem('standingsUpdated', JSON.stringify(currentDate))
+            console.log('Standings retrieved')
           })
           .catch(() => {
             console.log("error");
           });
     }
+    if(standingsData === [] || parsedDate !== currentDate) {
+      getStandings()
+    }
+    }, [])
 
     // //Set up formatting for standings layout
 
