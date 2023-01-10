@@ -81,6 +81,9 @@ function Scoreboard({colour, colourAway, currentDate}) {
       if(scores.length === 0) {
         getScores()
       }
+
+      // Disables Reacts 'missing dependency' issue
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
