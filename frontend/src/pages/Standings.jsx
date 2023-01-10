@@ -42,6 +42,9 @@ function Standings({colour, colourAway, currentDate}) {
     if(standingsData === [] || parsedDate !== currentDate) {
       getStandings()
     }
+
+    // Disables Reacts 'missing dependency' issue
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // //Set up formatting for standings layout
