@@ -14,7 +14,7 @@ function Register() {
         email: "",
         password: "",
         password2: "",
-        favouriteTeam: 'Select Your Favourite Team'
+        favouriteTeam: 'Atlanta Hawks'
     })
 
     const {name, email, password, password2, favouriteTeam} = formData
