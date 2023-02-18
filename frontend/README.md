@@ -1,46 +1,28 @@
-# Getting Started with Create React App and Redux
+# scoreboard
+NBA Stats and Standings App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+Description
 
-## Available Scripts
+    This project was built specifically for me. I was often unsatisfied with the various sites I would use to see the NBA scores and stats for the night, so I made exactly what I was looking for. The site is simple, uncluttered, and has a lot of room to easily add features.
 
-In the project directory, you can run:
+Language Choices
 
-### `npm start`
+    React was chosen to set up this project because it was a language that I wanted to spend a lot more time with. The project gave me a chance to use functionalities of it that I had not come across before, such as react-fast-marquee and react-dropdown and react-toastify.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Future of this Project
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    This project has a lot more room to grow if I decide to pursue it further. In its current state, it shows me the scores of the night, with player stats, and favourite players stats scrolling across the marquee. It also has up to date standings. Nothing too flashy.
 
-### `npm test`
+    Further functionality might include the following:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    -A page for season stats of the selected favourite players
 
-### `npm run build`
+    -The ability to show season stats for the team
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    -A websocket tying in team Instagram feeds or tweets about chosen favourite players
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Reflections
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    For a seemingly simple project, there were a lot of things that took a great amount of learning, and trial and error, to get where I needed them to be. This has given me a much better grasp on React than I started with, and gave me the realization that there is still much more to learn within React, and within software development as a whole, and that I am looking forward to the process.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
