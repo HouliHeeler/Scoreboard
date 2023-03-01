@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import {FaUser} from 'react-icons/fa'
-import { register, reset} from '../features/auth/authSlice'
+import { login, register, reset} from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 import {nbaTeams} from '../app/constants'
 
@@ -60,6 +60,17 @@ function Register() {
 
             dispatch(register(userData))
         }
+    }
+
+    const browse = (e) => {
+        e.preventDefault()
+
+        const userData = {
+            email: "test@user.com", 
+            password: "1234",
+        }
+
+        dispatch(login(userData))
     }
 
     if(isLoading) {
@@ -135,6 +146,7 @@ function Register() {
                     <button type='submit' className='btn btn-block'>Submit</button>
                 </div>
             </form>
+            <button onClick={browse} className="btn btn-block">Just Looking?</button>
         </section>
     </div>
 }

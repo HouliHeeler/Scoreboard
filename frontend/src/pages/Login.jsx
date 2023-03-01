@@ -56,6 +56,17 @@ function Login() {
         dispatch(login(userData))
     }
 
+    const browse = (e) => {
+        e.preventDefault()
+
+        const userData = {
+            email: "test@user.com", 
+            password: "1234",
+        }
+
+        dispatch(login(userData))
+    }
+
     if(isLoading) {
         return <Spinner />
     }
@@ -93,6 +104,7 @@ function Login() {
                     <button type='submit' className='btn btn-block'>Submit</button>
                 </div>
             </form>
+            <button onClick={browse} className="btn btn-block">Just Looking?</button>
         </section>
     </div>
 }
